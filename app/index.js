@@ -59,6 +59,11 @@ function saveLightevent(json) {
 
 }
 
+/**
+ * Receive nfc touch and remove
+ * store each touch/remove in db
+ * Call to here come from the Raspberrys that have NFC cards
+ */
 router.post('/lightevent', function*(next) {
 
     console.log("post lightevent");
@@ -77,7 +82,56 @@ router.post('/lightevent', function*(next) {
 
     this.body = "post lightevent";
 
+    yield next;
+
 });
+
+/**
+ * Returns the status for a tag
+ * Used from the Ipad app to determine if a tag has completed all rooms etc.
+ */
+router.get('/getTagStatus/:tagUid', function* (next) {
+
+    console.log("getTagStatus");
+
+    let tagUid = this.params.tagUid;
+
+    let jsonReturn = {
+        tagUid
+    };
+
+    // get number of times this tag has been used, no matter the day
+    yield r.table("lightevents").filter({ tagUid }).count().run(r_connection, (err, count) => {
+
+        if (err) throw err;
+
+        jsonReturn.totalCount = count;
+
+    });
+
+    // get the selected tag and all events from today
+    yield r.table("lightevents").filter({ tagUid }).filter( function(row) {
+        return row("timestamp").date().eq( r.now().date() );
+    }).run(r_connection, (err, cursor) => {
+
+        if (err) throw err;
+
+        cursor.toArray((err, result) => {
+
+            jsonReturn.todayEvents = result;
+
+        });
+
+    });
+
+    //
+
+    this.body = jsonReturn;
+
+    yield next;
+
+});
+
 
 var app = koa();
 
