@@ -14,5 +14,8 @@
     "koa-router": "^5.4.0",
     "raw-body": "^2.1.7",
     "rethinkdb": "^2.3.3"
+  },
+  "devDependencies": {
+    "standard": "^8.1.0"
   }
 }
