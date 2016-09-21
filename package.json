@@ -1,22 +1,31 @@
 {
   "name": "nordiskt_ljus",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": "6.2.1"
   },
   "author": "",
   "license": "ISC",
+  "private": true,
+  "description": "Nordiskt Ljus service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nf start -j procfile.dev",
+    "bootstrap": "env RETHINKDB_URL=rethinkdb://localhost:28015 node bootstrap.js"
+  },
   "dependencies": {
+    "bluebird": "^3.4.6",
     "koa": "^1.2.4",
+    "koa-bodyparser": "^2.2.0",
     "koa-favicon": "^1.2.1",
     "koa-router": "^5.4.0",
     "raw-body": "^2.1.7",
-    "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.23"
   },
   "devDependencies": {
-    "standard": "^8.1.0"
+    "foreman": "^2.0.0",
+    "standard": "^8.1.0",
+    "supervisor": "^0.11.0"
   }
 }

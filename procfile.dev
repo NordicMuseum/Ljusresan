@@ -1,0 +1,2 @@
+rethinkdb: rethinkdb
+web: supervisor -q -w app,index.js,config.js index.js

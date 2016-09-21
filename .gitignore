@@ -40,4 +40,11 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# OSX
 .DS_Store
+
+# Rethink DB data
+rethinkdb_data
+
+# Environment
+.env
