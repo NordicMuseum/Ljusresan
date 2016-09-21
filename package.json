@@ -20,7 +20,6 @@
     "koa-bodyparser": "^2.2.0",
     "koa-favicon": "^1.2.1",
     "koa-router": "^5.4.0",
-    "raw-body": "^2.1.7",
     "rethinkdbdash": "^2.3.23"
   },
   "devDependencies": {
