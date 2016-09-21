@@ -1,10 +1,10 @@
 {
-  "name": "nordiskt_ljus",
+  "name": "nordiskt-ljus",
   "version": "1.0.0",
   "engines": {
-    "node": "6.2.1"
+    "node": "6.5.0"
   },
-  "author": "",
+  "author": "Earth People",
   "license": "ISC",
   "private": true,
   "description": "Nordiskt Ljus service",
