@@ -13,7 +13,8 @@
     "koa-favicon": "^1.2.1",
     "koa-router": "^5.4.0",
     "raw-body": "^2.1.7",
-    "rethinkdb": "^2.3.3"
+    "rethinkdb": "^2.3.3",
+    "rethinkdbdash": "^2.3.23"
   },
   "devDependencies": {
     "standard": "^8.1.0"
