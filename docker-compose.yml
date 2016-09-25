@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  web:
+    build: .
+    links:
+      - rethinkdb
+    environment:
+      - RETHINKDB_ADDR=rethinkdb
+      - RETHINKDB_PORT=28015
+    ports:
+     - "5000:5000"
+
+  rethinkdb:
+    image: rethinkdb

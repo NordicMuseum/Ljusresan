@@ -10,6 +10,7 @@
   "description": "Nordiskt Ljus service",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development nf start -j procfile.dev",
     "bootstrap": "env RETHINKDB_URL=rethinkdb://localhost:28015 node bootstrap.js"

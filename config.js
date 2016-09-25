@@ -1,7 +1,7 @@
 module.exports = {
   rethinkdb: {
-    host: process.env.RETHINKDB_URL.split(':')[1].replace('//', ''),
-    port: process.env.RETHINKDB_URL.split(':')[2],
+    host: process.env.RETHINKDB_ADDR,
+    port: process.env.RETHINKDB_PORT,
     db: 'nordisktljus'
   },
 

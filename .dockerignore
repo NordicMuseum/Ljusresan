@@ -1,0 +1,4 @@
+rethinkdb_data/
+procfile.dev
+npm-debug.log
+.env
