@@ -10,6 +10,8 @@ services:
       - RETHINKDB_PORT=28015
     ports:
      - "5000:5000"
+    depends_on:
+      - rethinkdb
 
   rethinkdb:
     image: rethinkdb

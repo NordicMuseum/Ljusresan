@@ -1,4 +1,4 @@
-rethinkdb_data/
-procfile.dev
-npm-debug.log
-.env
+docker-compose.yml
+Dockerfile
+node_modules/
+readme.md
