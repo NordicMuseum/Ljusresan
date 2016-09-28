@@ -2,16 +2,19 @@ version: "2"
 
 services:
   web:
+    container_name: "nordisktljus-web"
     build: .
+    volumes:
+      - ./:/usr/src/app
+    ports:
+     - "5000:5000"
     links:
       - rethinkdb
     environment:
       - RETHINKDB_ADDR=rethinkdb
       - RETHINKDB_PORT=28015
-    ports:
-     - "5000:5000"
-    depends_on:
-      - rethinkdb
+    command: dockerize -wait tcp://rethinkdb:28015 -timeout 300s supervisor -w src,index.js index.js
 
   rethinkdb:
-    image: rethinkdb
+    container_name: "nordisktljus-db"
+    image: rethinkdb:latest
