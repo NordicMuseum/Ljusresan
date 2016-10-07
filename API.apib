@@ -1,0 +1,44 @@
+FORMAT: 1A
+
+# Nordiskt Ljus
+Nordiskt Ljus is a simple API allowing devices (...)
+
+## Group Events
+Resources related to events in the API.
+
+## Events Collection [/events]
+
+### Create a new Event [POST]
++ action (string) - The action, which can be "touch" or "remove"
++ tagUid (string) - The tag UID
++ staticUserData (object) - The static user data
+
++ Request (application/json)
+
+        {
+          "action": "touch",
+          "tagUid": "414c0310-f936-48b8-ac53-88271f87d8ad",
+          "staticUserData": {
+            "room": 1,
+            "station": 1
+          }
+        }
+
++ Response 204
+
+## Group Status
+Resources related to statuses in the API.
+
+## Statuses Collection [/status/{tag_uid}]
+
+### Get Session Status By Tag UID [GET]
++ Response 200 (application/json)
+
+        [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8
+        ]
