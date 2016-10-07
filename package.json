@@ -10,9 +10,8 @@
   "description": "Nordiskt Ljus service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development nf start -j procfile.dev",
-    "bootstrap": "env RETHINKDB_URL=rethinkdb://localhost:28015 node bootstrap.js"
+    "start": "node index.js",
+    "bootstrap": "node bootstrap.js"
   },
   "dependencies": {
     "bluebird": "^3.4.6",
@@ -23,8 +22,6 @@
     "rethinkdbdash": "^2.3.23"
   },
   "devDependencies": {
-    "foreman": "^2.0.0",
-    "standard": "^8.1.0",
-    "supervisor": "^0.11.0"
+    "standard": "^8.1.0"
   }
 }

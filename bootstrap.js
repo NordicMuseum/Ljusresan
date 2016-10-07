@@ -1,5 +1,5 @@
 const bluebird = require('bluebird')
-const config = require('./config')
+const config = require('./src/config')
 const r = require('rethinkdbdash')(config.rethinkdb)
 
 bluebird.coroutine(function * () {
