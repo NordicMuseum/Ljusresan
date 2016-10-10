@@ -1,8 +1,7 @@
 module.exports = {
-  rethinkdb: {
-    host: process.env.RETHINKDB_ADDR,
-    port: process.env.RETHINKDB_PORT,
-    db: 'nordisktljus'
+  database: {
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT
   },
 
   koa: {
