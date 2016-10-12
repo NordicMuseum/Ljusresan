@@ -12,7 +12,11 @@ Mongorito.connect('mongo/nordisktljus')
 const app = require('koa')()
 const router = require('koa-router')()
 
-router.post('/touches', require('./src/routes/touches/create'))
+router.post('/touches',
+  require('./src/routes/touches/create'))
+
+router.get('/statuses',
+  require('./src/routes/statuses/show'))
 
 /**
  * Configure application
