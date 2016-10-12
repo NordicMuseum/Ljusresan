@@ -17,6 +17,7 @@
     "koa-bodyparser": "^2.2.0",
     "koa-favicon": "^1.2.1",
     "koa-router": "^5.4.0"
+    "lodash": "^4.16.4",
     "mongorito": "^2.1.2"
   },
   "devDependencies": {
