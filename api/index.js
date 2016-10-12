@@ -5,12 +5,12 @@ const config = require('./src/config')
  */
 const Mongorito = require('mongorito')
 Mongorito.connect('mongo/nordisktljus')
+
+/**
+ * Setup koa & routes
+ */
 const app = require('koa')()
 const router = require('koa-router')()
-
-router.get('/', function * (next) {
-  this.body = 'Hello world!'
-})
 
 router.post('/touches', require('./src/routes/touches/create'))
 
