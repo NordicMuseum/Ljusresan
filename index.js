@@ -6,6 +6,11 @@ router.get('/', function * (next) {
   this.body = 'Hello world!'
 })
 
+router.post('/touches', require('./src/routes/touches/create'))
+
+/**
+ * Configure application
+ */
 app
   .use(require('koa-bodyparser')())
   .use(router.routes())
