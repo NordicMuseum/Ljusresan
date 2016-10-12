@@ -5,18 +5,11 @@ const config = require('./src/config')
  */
 const Mongorito = require('mongorito')
 Mongorito.connect('mongo/nordisktljus')
-
-/**
- * Setup koa
- */
 const app = require('koa')()
 const router = require('koa-router')()
 
-/**
- * Setup routes
- */
 router.get('/', function * (next) {
-  this.body = 'Nordiskt Ljus v0.0.1'
+  this.body = 'Hello world!'
 })
 
 router.post('/touches', require('./src/routes/touches/create'))
@@ -28,10 +21,13 @@ app
   .use(require('koa-bodyparser')())
   .use(router.routes())
   .use(router.allowedMethods())
-  .use(
-    require('koa-favicon')(require('path').join(__dirname, './src/assets/favicon.ico'))
-  )
+  .use(require('koa-favicon')(
+    require('path').join(__dirname, './src/assets/favicon.ico')
+  ))
 
+/**
+ * Boot application
+ */
 app.listen(config.koa.port, () => {
   console.log('Nordiskt Ljus listening on port', config.koa.port)
 })
