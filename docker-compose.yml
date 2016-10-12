@@ -1,19 +1,37 @@
 version: "2"
 
 services:
-  web:
-    container_name: "nordisktljus-web"
-    build: .
-    volumes:
-      - ./:/usr/src/app
+  nginx:
+    container_name: "nordisktljus-nginx"
+    build: ./nginx
     ports:
-      - "5000:5000"
+      - "5000:80"
+    links:
+      - api
+      - browser
+
+  api:
+    container_name: "nordisktljus-api"
+    build: ./api
+    volumes:
+      - ./api:/usr/src/api
+    ports:
+      - "5000"
     links:
       - mongo
     command: supervisor -w src,index.js index.js
+
+  browser:
+    container_name: "nordisktljus-browser"
+    build: ./browser
+    ports:
+      - "5000"
+    volumes:
+      - ./browser:/usr/src/browser
+    command: npm start
 
   mongo:
     container_name: "nordisktljud-mongo"
     image: "mongo:latest"
     ports:
-      - "27017:27017"
+      - "27017"
