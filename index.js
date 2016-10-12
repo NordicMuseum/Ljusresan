@@ -1,23 +1,33 @@
 const config = require('./src/config')
+
+/**
+ * Connect to database
+ */
+const Mongorito = require('mongorito')
+Mongorito.connect('mongo/nordisktljus')
 const app = require('koa')()
 const router = require('koa-router')()
 
-/**
- * Receive nfc touch:on and touch:off events */
-router.post('/events', require('./src/routes/events/create'))
+router.get('/', function * (next) {
+  this.body = 'Hello world!'
+})
+
+router.post('/touches', require('./src/routes/touches/create'))
 
 /**
- * Returns the status for a tag */
-router.get('/status/:tag', require('./src/routes/statuses/show'))
-
+ * Configure application
+ */
 app
   .use(require('koa-bodyparser')())
   .use(router.routes())
   .use(router.allowedMethods())
-  .use(
-    require('koa-favicon')(require('path').join(__dirname, './src/favicon.ico'))
-  )
+  .use(require('koa-favicon')(
+    require('path').join(__dirname, './src/assets/favicon.ico')
+  ))
 
+/**
+ * Boot application
+ */
 app.listen(config.koa.port, () => {
-  console.log('Nordiskt Ljus service listening on port', config.koa.port)
+  console.log('Nordiskt Ljus listening on port', config.koa.port)
 })

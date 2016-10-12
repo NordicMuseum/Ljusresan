@@ -10,16 +10,15 @@
   "description": "Nordiskt Ljus service",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "bootstrap": "node bootstrap.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
     "koa": "^1.2.4",
     "koa-bodyparser": "^2.2.0",
     "koa-favicon": "^1.2.1",
     "koa-router": "^5.4.0",
-    "rethinkdbdash": "^2.3.23"
+    "lodash": "^4.16.4",
+    "mongorito": "^2.1.2"
   },
   "devDependencies": {
     "standard": "^8.1.0"

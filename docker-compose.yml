@@ -7,14 +7,13 @@ services:
     volumes:
       - ./:/usr/src/app
     ports:
-     - "5000:5000"
+      - "5000:5000"
     links:
-      - rethinkdb
-    environment:
-      - RETHINKDB_ADDR=rethinkdb
-      - RETHINKDB_PORT=28015
-    command: dockerize -wait tcp://rethinkdb:28015 -timeout 300s supervisor -w src,index.js index.js
+      - mongo
+    command: supervisor -w src,index.js index.js
 
-  rethinkdb:
-    container_name: "nordisktljus-db"
-    image: rethinkdb:latest
+  mongo:
+    container_name: "nordisktljud-mongo"
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
