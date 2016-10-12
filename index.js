@@ -1,4 +1,10 @@
 const config = require('./src/config')
+
+/**
+ * Connect to database
+ */
+const Mongorito = require('mongorito')
+Mongorito.connect('mongo/nordisktljus')
 const app = require('koa')()
 const router = require('koa-router')()
 
