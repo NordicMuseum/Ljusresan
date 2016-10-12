@@ -34,4 +34,4 @@ services:
     container_name: "nordisktljud-mongo"
     image: "mongo:latest"
     ports:
-      - "27017"
+      - "27017:27017"
