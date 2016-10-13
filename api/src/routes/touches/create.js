@@ -11,7 +11,9 @@ module.exports = function * (next) {
   }
 
   if (action === 'touch') {
-
+    if (data.station === 27) {
+      session.set('finalStationTimestamp', new Date())
+    }
   }
 
   if (action === 'remove') {
@@ -22,9 +24,9 @@ module.exports = function * (next) {
         session.get('stations'), [[data.room, data.station].join(':')]
       ))
     }
-
-    yield session.save()
   }
+
+  yield session.save()
 
   this.response.status = 200
 }
