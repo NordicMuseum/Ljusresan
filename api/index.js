@@ -24,8 +24,25 @@ router.get('/final-station',
 /**
  * Configure application
  */
+
+const Session = require('./src/models/session')
+
 app
   .use(require('koa-bodyparser')())
+  .use(function * (next) {
+    const tagUid =
+      this.request.query.tagUid || this.request.body.tagUid
+
+    this.session = yield Session.findOne({
+      tagUid
+    })
+
+    if (!this.session && tagUid) {
+      this.session = new Session({tagUid, stations: []})
+    }
+
+    yield next
+  })
   .use(router.routes())
   .use(router.allowedMethods())
   .use(require('koa-favicon')(

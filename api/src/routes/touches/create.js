@@ -1,32 +1,25 @@
-const Session = require('../../models/session')
 const union = require('lodash').union
 
 module.exports = function * (next) {
-  const {action, tagUid, staticUserData: data} = this.request.body
-
-  let session = yield Session.findOne({tagUid})
-
-  if (!session) {
-    session = new Session({tagUid, stations: []})
-  }
+  const {action, staticUserData: data} = this.request.body
 
   if (action === 'touch') {
     if (data.station === 27) {
-      session.set('finalStationTimestamp', new Date())
+      this.session.set('finalStationTimestamp', new Date())
     }
   }
 
   if (action === 'remove') {
     if (data.room === 1 && data.station === 1) {
-      session.set('stations', [])
+      this.session.set('stations', [])
     } else {
-      session.set('stations', union(
-        session.get('stations'), [[data.room, data.station].join(':')]
+      this.session.set('stations', union(
+        this.session.get('stations'), [[data.room, data.station].join(':')]
       ))
     }
   }
 
-  yield session.save()
+  yield this.session.save()
 
   this.response.status = 200
 }
