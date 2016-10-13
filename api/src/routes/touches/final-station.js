@@ -9,6 +9,7 @@ module.exports = function * (next) {
   if (session) {
     this.response.status = 200
     this.response.body = {
+      updatedAt: session.get('finalStationTimestamp'),
       tagUid: session.get('tagUid'),
       stations: session.get('stations')
     }
