@@ -2,15 +2,26 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as StationActions from '../../actions/stations'
+import * as SessionActions from '../../actions/session'
 import style from './style.css'
 
 class App extends Component {
   render() {
-    const { actions, children } = this.props
+    const { session, actions, children } = this.props
     return (
       <div className={style.normal}>
         {children}
+        <div>
+          {session.tagUid}
+        </div>
+        <div>
+          {session.updatedAt}
+        </div>
+        <div>
+          {session.stations.map((station, index) => (
+            <p key={index}>{station}</p>
+          ))}
+        </div>
       </div>
     )
   }
@@ -18,13 +29,13 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    stations: state.stations
+    session: state.session
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(StationActions, dispatch)
+    actions: bindActionCreators(SessionActions, dispatch)
   }
 }
 

@@ -2,12 +2,12 @@
 import { createAction } from 'redux-actions'
 import request from 'superagent-bluebird-promise'
 
-export const fetchStations = () => (dispatch) => {
-  return request.post(`/api`).send()
+export const syncSession = () => (dispatch) => {
+  return request.get(`/api/final-station`).send()
 
   .then(({body}) => {
     dispatch({
-      type: 'update stations',
+      type: 'sync session',
       payload: body
     })
   })
