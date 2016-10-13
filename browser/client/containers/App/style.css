@@ -3,4 +3,29 @@ html,
 body {
   margin: 0;
   padding: 0;
+  font: 16px/18px Arial, sans-serif;
+}
+
+.normal { padding: 2em;  }
+.normal dt { font-weight: bold;  }
+.normal dd { margin-bottom: 1em; }
+
+.normal table {
+  border: 1px solid #efefef;
+}
+.normal table thead td {
+  font-size: 0.7em;
+  font-weight: bold;
+  border-bottom: 1px solid #efefef;
+  background-color: #aaaaaa;
+}
+.normal table tbody tr td:nth-child(1) {
+  text-align: right;
+  border-right: 1px dashed #e1e1e1;
+}
+.normal table td {
+  padding: 1em;
+}
+.normal table tr:nth-child(even) td {
+  background-color: #fafafa;
 }
