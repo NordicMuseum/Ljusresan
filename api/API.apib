@@ -10,28 +10,37 @@ Resources related to events in the API.
 
 ### Create a new Touch event [POST]
 + action (string) - The action, which can be "touch" or "remove"
-+ tagUid (string) - The tag UID
 + staticUserData (object) - The static user data
 
 + Request (application/json)
+    + Body
 
-        {
-          "action": "touch",
-          "tagUid": "414c0310-f936-48b8-ac53-88271f87d8ad",
-          "staticUserData": {
-            "room": 1,
-            "station": 1
-          }
-        }
+            {
+              "action": "touch",
+              "tagUid": "414c0310-f936-48b8-ac53-88271f87d8ad",
+              "staticUserData": {
+                "room": 1,
+                "station": 1
+              }
+            }
+
+    + Headers
+
+            X-TagUid: some-tag-uid
 
 + Response 204
 
 ## Group Status
 Resources related to statuses in the API.
 
-## Statuses Collection [/statuses?tagUid={tagUid}]
+## Statuses Collection [/statuses]
 
 ### Get Session Status By Tag UID [GET]
++ Request (application/json)
+    + Headers
+
+            X-TagUid: some-tag-uid
+
 + Response 200 (application/json)
 
         {

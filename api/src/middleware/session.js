@@ -1,8 +1,7 @@
 const Session = require('../models/session')
 
 module.exports = function * (next) {
-  const tagUid =
-    this.request.query.tagUid || this.request.body.tagUid
+  const tagUid = this.request.headers['x-taguid']
 
   this.session = yield Session.findOne({
     tagUid
