@@ -19,6 +19,8 @@ services:
       - "5000"
     links:
       - mongo
+    environment:
+      - DATABASE_HOST=mongo
     command: supervisor -w src,index.js index.js
 
   browser:

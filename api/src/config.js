@@ -1,7 +1,6 @@
 module.exports = {
   database: {
-    host: process.env.DATABASE_HOST,
-    port: process.env.DATABASE_PORT
+    host: process.env.DATABASE_HOST
   },
 
   koa: {
