@@ -2,8 +2,6 @@
 RFID proxy/command unit
 
 ## Prerequisites
-- node
-- mongodb
 - docker
 - docker-compose
 
