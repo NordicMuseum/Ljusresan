@@ -1,20 +1,22 @@
+const Light = require('../../modules/light')
 const union = require('lodash').union
 
 module.exports = function * (next) {
-  const {action, staticUserData: data} = this.request.body
+  const {action, staticUserData: {room, station}} = this.request.body
 
   if (action === 'touch') {
-    if (data.station === 27) {
-      this.session.set('finalStationTimestamp', new Date())
-    }
+    const light = new Light('10.0.1.137', 6969)
+    light.on('some-id').close()
   }
 
   if (action === 'remove') {
-    if (data.room === 1 && data.station === 1) {
+    if (room === 1 && station === 1) {
       this.session.set('stations', [])
+    } else if (station === 27) {
+      this.session.set('finalStationTimestamp', new Date())
     } else {
       this.session.set('stations', union(
-        this.session.get('stations'), [[data.room, data.station].join(':')]
+        this.session.get('stations'), [[room, station].join(':')]
       ))
     }
   }
