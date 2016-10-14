@@ -2,9 +2,7 @@ const net = require('net')
 
 module.exports = class Light {
   constructor (host, port) {
-    this.client = net.createConnection(port, host, () => {
-      console.log('connected to', host, port)
-    })
+    this.client = net.createConnection(port, host)
   }
 
   on (id) {
