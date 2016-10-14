@@ -8,4 +8,4 @@ RFID proxy/command unit
 ## Development
 - `$ docker-compose up`
 
-Note: If it's the first time you run `docker-compose` you must add the `--build` flag.
+Note: If it's your first time running `docker-compose` you must add the `--build` flag.
