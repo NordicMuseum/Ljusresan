@@ -1,11 +1,7 @@
-/**
- * Usage: node telnet-server.js
- */
-
 const net = require('net')
 
-const HOST = '10.0.1.137'
-const PORT = 6969
+const HOST = process.env.HOST
+const PORT = process.env.PORT
 
 net.createServer(sock => {
   console.log(sock.remoteAddress +':'+ sock.remotePort + ' connected...\n')
@@ -23,4 +19,4 @@ net.createServer(sock => {
 
 .listen(PORT, HOST)
 
-console.log('Server listening on ' + HOST +':'+ PORT)
+console.log('Telnet server listening on ' + HOST +':'+ PORT)
