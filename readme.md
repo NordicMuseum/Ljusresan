@@ -1,6 +1,13 @@
 # Nordiskt ljus
-En node-snurra för Nordiska Museet.
+RFID proxy/command unit
 
-## Teknik
+## Prerequisites
 - node
 - mongodb
+- docker
+- docker-compose
+
+## Development
+- `$ docker-compose up`
+
+Note: If it's the first time you run `docker-compose` you must add the `--build` flag.
