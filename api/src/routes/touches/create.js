@@ -5,7 +5,7 @@ module.exports = function * (next) {
   const {action, staticUserData: {room, station}} = this.request.body
 
   if (action === 'touch') {
-    const light = new Light('10.0.1.137', 6969)
+    const light = new Light('telnet', 5000)
     light.on('some-id').close()
   }
 
