@@ -4,7 +4,7 @@ const config = require('./src/config')
  * Connect to database
  */
 const Mongorito = require('mongorito')
-Mongorito.connect('mongo/nordisktljus')
+Mongorito.connect(config.database.host + '/nordisktljus')
 
 /**
  * Setup koa & routes
