@@ -24,7 +24,6 @@ router.get('/final-station',
 /**
  * Configure application
  */
-
 app
   .use(require('koa-bodyparser')())
   .use(require('./src/middleware/session'))
