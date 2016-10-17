@@ -26,10 +26,10 @@ body {
 }
 
 .normal {
-  padding: 2em;
   font: 30px/32px Primer, Arial, sans-serif;
   font-weight: 600;
   text-align: center;
+  padding-top: 2em;
 }
 
 .normal h1 {
@@ -45,10 +45,87 @@ body {
   border: 2px dashed white;
 }
 
-.normal .initial-copy {
+.normal .info-section {
+  padding: 0em 2em 2em 2em;
+  box-sizing: border-box;
+  position: absolute;
+}
+.normal .status-section {
+  padding: 0em 2em 2em 2em;
+  box-sizing: border-box;
+  position: absolute;
+}
+
+.normal .copy-content {
   display: flex;
 }
-.normal .initial-copy > div {
+.normal .copy-content > div {
   padding: 2em;
   text-align: left;
 }
+
+.normal .rooms {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.normal .rooms li {
+  width: 80px;
+  height: 80px;
+  display: block;
+  border-radius: 50ex;
+  background-color: white;
+  margin-left: 100px;
+  margin-top: 90px;
+}
+.normal .rooms li:before {
+  content: "";
+  width: 80px;
+  height: 150px;
+  display: block;
+  margin-left: -100px;
+  margin-top: -40px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.normal .rooms li.room-1 { margin-left: 150px; }
+.normal .rooms li.room-1:before {
+  width: 150px;
+  height: 150px;
+  margin-left: -160px;
+  background-image: svg('sun');
+}
+
+.normal .rooms li.room-2 { margin-left: 130px; }
+.normal .rooms li.room-2:before {
+  width: 90px;
+  height: 150px;
+  margin-left: -100px;
+  background-image: svg('fire');
+}
+
+.normal .rooms li.room-3 { margin-left: 130px; }
+.normal .rooms li.room-3:before {
+  width: 60px;
+  height: 150px;
+  margin-left: -80px;
+  background-image: svg('candle');
+}
+
+.normal .rooms li.room-4 { margin-left: 130px; }
+.normal .rooms li.room-4:before {
+  width: 85px;
+  height: 150px;
+  margin-left: -100px;
+  background-image: svg('lightbulb');
+}
+
+.normal .rooms li.room-5 { margin-left: 130px; }
+.normal .rooms li.room-5:before {
+  width: 50px;
+  height: 150px;
+  margin-left: -70px;
+  background-image: svg('lowenergy');
+}
+
