@@ -25,36 +25,23 @@ class App extends Component {
   render() {
     const { session, actions, children } = this.props
     return (
-      <div className={style.normal}>
-        {children}
-        <dl>
-          <dt>Tag UID</dt>
-          <dd>{session.tagUid}</dd>
-          <dt>Registered at</dt>
-          <dd>{session.updatedAt}</dd>
-          <dt>Stations discovered</dt>
-          <dd>
-            <table>
-              <thead>
-                <tr>
-                  <td>Room</td>
-                  <td>Station</td>
-                </tr>
-              </thead>
-              <tbody>
-              {session.stations.map((data, index) => {
-                const [room, station] = data.split(':')
-                return (
-                  <tr key={index}>
-                    <td>{room}</td>
-                    <td>{station}</td>
-                  </tr>
-                )
-              })}
-              </tbody>
-            </table>
-          </dd>
-        </dl>
+      <div className={style['normal']}>
+        <h1>Ljusresan • The Journey of Light</h1>
+        <section id="info-section" className={style['info-section']}>
+          <div className={style['flame']}>flame</div>
+          <div className={style['initial-copy']}>
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat.</div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat.</div>
+          </div>
+        </section>
+        <section id="status-section" className={style['status-section']}>
+        </section>
       </div>
     )
   }
