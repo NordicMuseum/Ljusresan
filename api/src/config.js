@@ -12,6 +12,7 @@ module.exports = {
       host: 'telnet',
       description: 'Telnet test station'
     },
+
     'rfid01': {
       host: '192.168.10.2',
       description: 'Skylt rum 1'
