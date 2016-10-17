@@ -9,25 +9,11 @@ module.exports = {
     port: process.env.PORT
   },
 
-  stations: {
-    'telnet': {
-      host: 'telnet',
-      description: 'Telnet test station'
-    },
-
-    'rfid01': {
-      host: '192.168.10.2',
-      description: 'Skylt rum 1'
-    },
-
-    'rfid02': {
-      host: '192.168.10.3',
-      description: 'Skylt rum 2'
-    },
-
-    'rfid03': {
-      host: '192.168.10.4',
-      description: 'Väsen 1'
+  services: {
+    dmx: {
+      host: production ? '10.0.1.12' : 'telnet',
+      port: production ? 3000 : 5000,
+      desc: 'Telnet test host. Only usable within the docker setup.'
     }
   }
 }
