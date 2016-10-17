@@ -1,9 +1,29 @@
+@font-face {
+    font-family: "Primer";
+    font-weight: 400;
+    src: url("../../assets/fonts/primer print.eot") format("eot"),
+         url("../../assets/fonts/primer print.ttf") format("truetype"),
+         url("../../assets/fonts/primer print.woff") format("woff"),
+         url("../../assets/fonts/primer print.svg#a3cd51a4588759782fc33c8ed2eb36c0") format("svg");
+}
+
+
+@font-face {
+    font-family: "Primer";
+    font-weight: 600;
+    src: url("../../assets/fonts/primer print bold.eot") format("eot"),
+         url("../../assets/fonts/primer print bold.ttf") format("truetype"),
+         url("../../assets/fonts/primer print bold.woff") format("woff"),
+         url("../../assets/fonts/primer print bold.svg#f9b8b4d6bdc693e5fee184cc0f03617c") format("svg");
+}
 
 html,
 body {
+  background-color: #76787B;
+  color: white;
   margin: 0;
   padding: 0;
-  font: 16px/18px Arial, sans-serif;
+  font: 16px/18px Primer, Arial, sans-serif;
 }
 
 .normal { padding: 2em;  }
@@ -27,5 +47,5 @@ body {
   padding: 1em;
 }
 .normal table tr:nth-child(even) td {
-  background-color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.07);
 }

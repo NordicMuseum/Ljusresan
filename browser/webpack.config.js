@@ -41,6 +41,10 @@ module.exports = {
         loader: 'style!css'
       },
       {
+        test : /\.(ttf|svg|eot|woff)/,
+        loader: 'url-loader'
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loaders: [
