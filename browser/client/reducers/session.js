@@ -24,10 +24,8 @@ export default handleActions({
       stations: action.payload.stations,
       rooms: action.payload.stations.reduce((previous, data, index, origin) => {
         const [room, station] = data.split(':')
-        console.log(previous)
         if (!previous[room - 1]) {
           previous[room - 1] = {complete: false, stations: []}
-          console.log('new room')
         }
         const target = previous[room - 1]
         target.stations.push(station)
