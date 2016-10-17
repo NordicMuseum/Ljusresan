@@ -28,7 +28,13 @@ body {
 .normal {
   padding: 2em;
   font: 16px/18px Arial, sans-serif;
+  display: flex;
 }
+
+.normal dl {
+  width: 70%;
+}
+
 .normal dt { font-weight: bold; font-size: 18px; line-height: 1.5em;  }
 .normal dd { margin-bottom: 1em; }
 
@@ -62,4 +68,17 @@ body {
   color: #fafafa;
   padding: 1em;
   font: 14px/18px monospace;
+}
+
+.normal .actions {
+  padding: 2em;
+}
+
+.normal .actions button {
+  appearance: none;
+  display: block;
+  padding: 1em;
+  font-size: 2em;
+  background-color: crimson;
+  color: rgba(255, 200, 200, 1);
 }

@@ -22,11 +22,16 @@ class Observer extends Component {
     }, POLLING_FREQUENCY))
   }
 
+  handleSessionEnd (event) {
+    event.preventDefault()
+
+    this.props.actions.endSession(this.props.session.tagUid)
+  }
+
   render() {
-    const { session, actions, children } = this.props
+    const { session, actions } = this.props
     return (
       <div className={style.normal}>
-        {children}
         <dl>
           <dt>Tag UID</dt>
           <dd>
@@ -70,6 +75,11 @@ class Observer extends Component {
             </pre>
           </dd>
         </dl>
+        <div className={style['actions']}>
+          <button onClick={this.handleSessionEnd.bind(this)}>
+            End Session
+          </button>
+        </div>
       </div>
     )
   }
