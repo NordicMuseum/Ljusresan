@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "Primer";
+    font-weight: 400;
+    src: url("../../assets/fonts/primer print.eot") format("eot"),
+         url("../../assets/fonts/primer print.ttf") format("truetype"),
+         url("../../assets/fonts/primer print.woff") format("woff"),
+         url("../../assets/fonts/primer print.svg#a3cd51a4588759782fc33c8ed2eb36c0") format("svg");
+}
+
+
+@font-face {
+    font-family: "Primer";
+    font-weight: 600;
+    src: url("../../assets/fonts/primer print bold.eot") format("eot"),
+         url("../../assets/fonts/primer print bold.ttf") format("truetype"),
+         url("../../assets/fonts/primer print bold.woff") format("woff"),
+         url("../../assets/fonts/primer print bold.svg#f9b8b4d6bdc693e5fee184cc0f03617c") format("svg");
+}
+
+html,
+body {
+  background-color: #76787B;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font: 16px/18px Primer, Arial, sans-serif;
+}
+
+.normal { padding: 2em;  }
+.normal dt { font-weight: bold; font-size: 18px;  }
+.normal dd { margin-bottom: 1em; }
+
+.normal table {
+  border: 1px solid #efefef;
+}
+.normal table thead td {
+  font-size: 0.7em;
+  font-weight: bold;
+  border-bottom: 1px solid #efefef;
+  background-color: #aaaaaa;
+}
+.normal table tbody tr td:nth-child(1) {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  border-right: 1px dashed #e1e1e1;
+}
+.normal table tbody tr td:nth-child(2) {
+  text-transform: uppercase;
+}
+.normal table td {
+  padding: 1em;
+}
+.normal table tr:nth-child(even) td {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.normal pre {
+  background-color: #333333;
+  color: #fafafa;
+  padding: 1em;
+  font: 14px/18px monospace;
+}

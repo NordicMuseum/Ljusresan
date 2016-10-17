@@ -12,3 +12,14 @@ export const sync = () => (dispatch) => {
     })
   })
 }
+
+export const syncObserver = () => (dispatch) => {
+  return request.get(`/api/final-station`).send()
+
+  .then(({body}) => {
+    dispatch({
+      type: 'sync session',
+      payload: body
+    })
+  })
+}
