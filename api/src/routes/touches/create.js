@@ -7,7 +7,8 @@ module.exports = function * (next) {
 
   if (action === 'touch') {
     const light = new Light(config.stations[station].host, 5000)
-    light.on('some-id').close()
+    light.turnOn('_T01_P01_D01')
+    light.close()
   }
 
   if (action === 'remove') {

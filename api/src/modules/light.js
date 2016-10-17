@@ -5,8 +5,8 @@ module.exports = class Light {
     this.client = net.createConnection(port, host)
   }
 
-  on (id) {
-    this.client.write(id); return this
+  turnOn (id) {
+    this.client.write(id)
   }
 
   close () {
