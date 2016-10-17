@@ -1,2 +1,2 @@
 
-export const POLLING_FREQUENCY = 1000
+export const POLLING_FREQUENCY = 10000
