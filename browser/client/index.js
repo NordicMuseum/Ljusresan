@@ -7,19 +7,15 @@ import React from 'react'
 
 import App from './containers/App'
 import configure from './store'
-import { syncSession } from './actions/session'
 
 const store = configure()
 const history = syncHistoryWithStore(browserHistory, store)
 
-const requireSession = () => {
-  return syncSession()(store.dispatch)
-}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App} onEnter={requireSession}>
+      <Route path="/" component={App}>
       </Route>
     </Router>
   </Provider>,

@@ -1,0 +1,2 @@
+
+export const POLLING_FREQUENCY = 10000
