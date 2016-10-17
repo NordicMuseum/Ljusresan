@@ -1,3 +1,5 @@
+const production = process.env.NODE_ENV === 'production'
+
 module.exports = {
   database: {
     host: process.env.DATABASE_HOST
