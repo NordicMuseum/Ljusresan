@@ -23,11 +23,13 @@ body {
   color: white;
   margin: 0;
   padding: 0;
-  font: 16px/18px Primer, Arial, sans-serif;
 }
 
-.normal { padding: 2em;  }
-.normal dt { font-weight: bold; font-size: 18px;  }
+.normal {
+  padding: 2em;
+  font: 16px/18px Arial, sans-serif;
+}
+.normal dt { font-weight: bold; font-size: 18px; line-height: 1.5em;  }
 .normal dd { margin-bottom: 1em; }
 
 .normal table {
