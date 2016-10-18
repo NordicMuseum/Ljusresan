@@ -1,3 +1,4 @@
+const config = require('../../config')
 const Light = require('../../modules/light')
 const union = require('lodash').union
 
@@ -5,8 +6,10 @@ module.exports = function * (next) {
   const {action, staticUserData: {room, station}} = this.request.body
 
   if (action === 'touch') {
-    const light = new Light('_T01_P01_D01')
-    light.turnOn()
+    const light = new Light()
+    const command = config.lights[`${room}:${station}`]
+
+    light.turnOn(command)
     light.close()
   }
 
