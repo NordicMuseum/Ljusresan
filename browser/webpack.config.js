@@ -1,6 +1,8 @@
 var rucksack = require('rucksack-css')
 var webpack = require('webpack')
 var path = require('path')
+var svg = require('postcss-svg')
+var svgo = require('postcss-svgo')
 
 module.exports = {
   context: path.join(__dirname, './client'),
@@ -60,7 +62,12 @@ module.exports = {
   postcss: [
     rucksack({
       autoprefixer: true
-    })
+    }),
+    svg({
+      paths: ['client/assets/svg'],
+      ei: false
+    }),
+    svgo()
   ],
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),

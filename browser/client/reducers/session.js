@@ -4,16 +4,25 @@ import { handleActions } from 'redux-actions'
 const initialState = {
   updatedAt: null,
   tagUid: null,
-  stations: []
+  stations: [],
+  rooms: []
 }
 
-const stationsPerRoom = {
-  1: 1,
-  2: 3,
-  3: 6,
-  4: 8,
-  5: 6,
-  6: 1
+const validateCompletion = (room) => {
+  switch (room.id) {
+    case 1:
+      return !!(room.stations.length)
+    case 2:
+      return !!(room.stations.length === 3)
+    case 3:
+      return !!(room.stations.length > 5)
+    case 4:
+      return !!(room.stations.length === 8)
+    case 5:
+      return !!(room.stations.length === 6)
+    case 6:
+      return !!(room.stations.length)
+  }
 }
 
 export default handleActions({
@@ -23,13 +32,18 @@ export default handleActions({
       tagUid: action.payload.tagUid,
       stations: action.payload.stations,
       rooms: action.payload.stations.reduce((previous, data, index, origin) => {
-        const [room, station] = data.split(':')
+        let [station, room] = data.split(':')
+        room = parseInt(room, 10)
         if (!previous[room - 1]) {
-          previous[room - 1] = {complete: false, stations: []}
+          previous[room - 1] = {
+            id: room,
+            completed: false,
+            stations: []
+          }
         }
         const target = previous[room - 1]
         target.stations.push(station)
-        target.complete = stationsPerRoom[room] === target.stations.length
+        target.completed = validateCompletion(target)
         return previous
       }, [])
     }
