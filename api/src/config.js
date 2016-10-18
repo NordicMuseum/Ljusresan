@@ -1,5 +1,3 @@
-const production = process.env.NODE_ENV === 'production'
-
 module.exports = {
   database: {
     host: process.env.DATABASE_HOST
@@ -11,8 +9,8 @@ module.exports = {
 
   services: {
     dmx: {
-      host: production ? '10.0.1.12' : 'telnet',
-      port: production ? 3000 : 5000,
+      host: process.env.DMX_HOST,
+      port: process.env.DMX_PORT,
       desc: 'Telnet test host. Only usable within the docker setup.'
     }
   }
