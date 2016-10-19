@@ -3,7 +3,7 @@ const net = require('net')
 
 module.exports = class Light {
   constructor () {
-    const {host, port} = config.services.dmx
+    const {host, port} = config.dmx
     this.client = net.createConnection(port, host)
   }
 

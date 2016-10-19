@@ -4,14 +4,12 @@ module.exports = {
   },
 
   koa: {
-    port: process.env.PORT
+    port: process.env.KOA_PORT
   },
 
-  services: {
-    dmx: {
-      host: process.env.DMX_HOST,
-      port: process.env.DMX_PORT
-    }
+  dmx: {
+    host: process.env.DMX_HOST,
+    port: process.env.DMX_PORT
   },
 
   lights: {
