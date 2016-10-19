@@ -17,8 +17,8 @@ module.exports = function * (next) {
   }
 
   if (action === 'remove') {
-    } else if (isFinalStation) {
-      session.set('endedAt', new Date())
+    if (isFinalStation) {
+      session.set('ended', true)
     } else {
       session.set('stations', union(
         session.get('stations'), [`${room}:${station}`]
