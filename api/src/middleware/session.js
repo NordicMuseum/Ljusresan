@@ -4,7 +4,7 @@ module.exports = function * (next) {
   const tagUid = this.request.headers['x-taguid']
 
   this.session = yield Session.findOne({
-    tagUid
+    tagUid, ended: false
   })
 
   if (!this.session && tagUid) {
