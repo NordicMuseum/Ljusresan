@@ -13,7 +13,7 @@ module.exports = {
   },
 
   commandMapping: {
-    '1:1': {on: null, off: null},
+    '1:1': {on: '>_T01_P05_D01_ON_<', off: '>_T01_P05_D01_OFF_<'},
 
     '2:1': {on: '>_T01_P05_D01_ON_<', off: '>_T01_P05_D01_OFF_<'},
     '2:2': {on: '>_T01_P05_D01_ON_<', off: '>_T01_P05_D01_OFF_<'},
