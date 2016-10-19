@@ -6,7 +6,7 @@ module.exports = function * (next) {
   const {action, staticUserData: {room, station}} = this.request.body
 
   const isFirstStation = (room === 1 && station === 1)
-  const isFinalStation = (room === 5 && station === 27)
+  const isFinalStation = (room === 6 && station === 27)
 
   if (action === 'touch') {
     try {
