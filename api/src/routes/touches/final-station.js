@@ -5,9 +5,9 @@ module.exports = function * (next) {
 
   if (session) {
     this.response.body = {
-      updatedAt: session.get('finalStationTimestamp'),
       tagUid: session.get('tagUid'),
-      stations: session.get('stations')
+      stations: session.get('stations'),
+      endedAt: session.get('endedAt')
     }
 
     this.response.status = 200
