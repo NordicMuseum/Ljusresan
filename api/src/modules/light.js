@@ -7,12 +7,14 @@ class Light {
   }
 
   on (room, station) {
-    const command = config.commandMapping[room + ':' + station].on
+    const key = (room + ':' + station)
+    const command = config.commandMapping[key].on
     this.client.write(command)
   }
 
   off (room, station) {
-    const command = config.commandMapping[room + ':' + station].off
+    const key = (room + ':' + station)
+    const command = config.commandMapping[key].off
     this.client.write(command)
   }
 }
