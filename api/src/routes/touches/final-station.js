@@ -1,10 +1,7 @@
 const Session = require('../../models/session')
 
 module.exports = function * (next) {
-  let session = yield Session
-    .exists('finalStationTimestamp')
-    .sort('finalStationTimestamp', -1)
-    .findOne()
+  let session = yield Session.exists('endedAt').sort('endedAt', -1).findOne()
 
   if (session) {
     this.response.status = 200
