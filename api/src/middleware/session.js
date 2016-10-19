@@ -7,8 +7,8 @@ module.exports = function * (next) {
     tagUid, ended: false
   })
 
-  if (!this.session && tagUid) {
-    this.session = new Session({tagUid, stations: []})
+  if (!this.session) {
+    this.session = new Session({tagUid})
   }
 
   yield next
