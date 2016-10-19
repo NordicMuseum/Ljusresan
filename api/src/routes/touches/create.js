@@ -24,7 +24,7 @@ module.exports = function * (next) {
       session.set('endedAt', new Date())
     } else {
       session.set('stations', union(
-        session.get('stations'), [`${station}:${room}`]
+        session.get('stations'), [`${room}:${station}`]
       ))
 
       light.off(room, station)
