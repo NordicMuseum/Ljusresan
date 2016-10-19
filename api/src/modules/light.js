@@ -1,17 +1,20 @@
 const config = require('../config')
 const net = require('net')
 
-module.exports = class Light {
-  constructor () {
-    const {host, port} = config.dmx
+class Light {
+  constructor (host, port) {
     this.client = net.createConnection(port, host)
   }
 
-  turnOn (command) {
+  on (room, station) {
+    const command = config.commandMapping[room + ':' + station].on
     this.client.write(command)
   }
 
-  close () {
-    this.client.end()
+  off (room, station) {
+    const command = config.commandMapping[room + ':' + station].off
+    this.client.write(command)
   }
 }
+
+module.exports = new Light(config.dmx.host, config.dmx.port)
