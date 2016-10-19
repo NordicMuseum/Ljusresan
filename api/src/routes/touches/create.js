@@ -5,7 +5,6 @@ module.exports = function * (next) {
   const session = this.session
   const {action, staticUserData: {room, station}} = this.request.body
 
-  const isFirstStation = (room === 1 && station === 1)
   const isFinalStation = (room === 6 && station === 27)
 
   if (action === 'touch') {
@@ -18,8 +17,6 @@ module.exports = function * (next) {
   }
 
   if (action === 'remove') {
-    if (isFirstStation) {
-      session.set('stations', [])
     } else if (isFinalStation) {
       session.set('endedAt', new Date())
     } else {
