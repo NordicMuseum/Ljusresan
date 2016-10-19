@@ -21,7 +21,7 @@ module.exports = function * (next) {
     if (isFirstStation) {
       session.set('stations', [])
     } else if (isFinalStation) {
-      session.set('finalStationTimestamp', new Date())
+      session.set('endedAt', new Date())
     } else {
       session.set('stations', union(
         session.get('stations'), [`${station}:${room}`]
