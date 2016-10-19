@@ -10,10 +10,5 @@ module.exports = {
   dmx: {
     host: process.env.DMX_HOST,
     port: process.env.DMX_PORT
-  },
-
-  lights: {
-    '2:2': '_T02_P01_D01_ON_',
-    '2:3': '_T02_P02_D01_ON_'
   }
 }
