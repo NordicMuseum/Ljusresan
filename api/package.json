@@ -13,6 +13,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "flat": "^2.0.1",
     "koa": "^1.2.4",
     "koa-bodyparser": "^2.2.0",
     "koa-favicon": "^1.2.1",
