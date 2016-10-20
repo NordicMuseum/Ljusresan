@@ -1,6 +1,5 @@
 const config = require('../config')
 const Model = require('mongorito').Model
-const has = require('lodash/has')
 const dmx = require('../modules/DMX')
 const flatten = require('flat')
 
