@@ -1,5 +1,3 @@
-const union = require('lodash/union')
-
 module.exports = function * (next) {
   const session = this.session
   const {action, staticUserData: {room, station}} = this.request.body
@@ -11,9 +9,7 @@ module.exports = function * (next) {
       if (isFinalStation) {
         session.set('ended', true)
       } else {
-        session.set('stations', union(
-          session.get('stations'), [`${room}:${station}`]
-        ))
+        session.set(`stations.${room}.${station}`, true)
       }
 
       yield session.save()
