@@ -34,7 +34,7 @@ module.exports = class Session extends Model {
     if (destination) {
       const {room, station} = parseDestination(destination)
 
-      if (destination && !has(config.commandMapping, [room, station])) {
+      if (!has(config.commandMapping, [room, station])) {
         throw new Error('Destination not found in commandMapping')
       }
     }
