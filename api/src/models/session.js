@@ -19,4 +19,10 @@ module.exports = class Session extends Model {
       stations: [], ended: false
     }
   }
+
+  configure () {
+    this.before('save', this.validate)
+    this.before('save', this.toggleLight)
+  }
+
 }
