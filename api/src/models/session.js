@@ -25,4 +25,17 @@ module.exports = class Session extends Model {
     this.before('save', this.toggleLight)
   }
 
+  * validate () {
+    const destination =
+      difference(this.attributes.stations, this.previous.stations)[0]
+
+    if (destination) {
+      const {room, station} = parseDestination(destination)
+
+      if (destination && !has(config.commandMapping, [room, station])) {
+        throw new Error('Destination not found in commandMapping')
+      }
+    }
+  }
+
 }
