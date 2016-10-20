@@ -2,6 +2,8 @@ const config = require('../config')
 const Model = require('mongorito').Model
 const has = require('lodash/has')
 const difference = require('lodash/difference')
+const light = require('../modules/light')
+
 const parseDestination = (destination) => {
   return {
     room: destination.split(':')[0],
@@ -38,4 +40,13 @@ module.exports = class Session extends Model {
     }
   }
 
+  * toggleLight () {
+    const destination =
+      difference(this.attributes.stations, this.previous.stations)[0]
+
+    if (destination) {
+      const {room, station} = parseDestination(destination)
+      light.on(room, station)
+    }
+  }
 }
