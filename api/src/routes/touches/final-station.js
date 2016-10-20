@@ -2,7 +2,6 @@ const Session = require('../../models/session')
 
 module.exports = function * (next) {
   const session = yield Session.where({
-    tagUid: this.session.tagUid,
     ended: true
   }).sort({
     updated_at: -1
