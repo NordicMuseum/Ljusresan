@@ -8,9 +8,14 @@ module.exports = function * (next) {
 
   if (action === 'touch') {
     try {
-      session.set('stations', union(
-        session.get('stations'), [`${room}:${station}`]
-      ))
+      if (isFinalStation) {
+        session.set('ended', true)
+      } else {
+        session.set('stations', union(
+          session.get('stations'), [`${room}:${station}`]
+        ))
+      }
+
       yield session.save()
 
       this.status = 204
