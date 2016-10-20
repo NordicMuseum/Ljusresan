@@ -16,6 +16,10 @@ module.exports = function * (next) {
 
       this.status = 204
     } catch (error) {
+      this.body = {
+        error: error.message
+      }
+
       this.status = 404
     }
   }
