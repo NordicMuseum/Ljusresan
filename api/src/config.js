@@ -54,6 +54,7 @@ module.exports = {
     },
 
     6: {
-      27: {on: null, off: null}
+      27: null
     }
+  }
 }
