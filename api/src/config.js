@@ -55,5 +55,7 @@ module.exports = {
     6: {
       27: {on: null, off: null}
     }
-  }
+  },
+
+  lightTimeout: process.env.LIGHT_TIMEOUT
 }

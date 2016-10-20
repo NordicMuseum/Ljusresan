@@ -36,6 +36,8 @@ module.exports = class Session extends Model {
       const station = obj[1]
 
       dmx.on(room, station)
+
+      setTimeout(() => { dmx.off(room, station) }, config.lightTimeout)
     }
   }
 }

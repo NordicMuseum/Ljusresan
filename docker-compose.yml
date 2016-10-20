@@ -26,6 +26,7 @@ services:
       - DATABASE_HOST=mongo
       - DMX_HOST=telnet
       - DMX_PORT=5000
+      - LIGHT_TIMEOUT=10000
     command: supervisor -w src,index.js index.js
 
   browser:
