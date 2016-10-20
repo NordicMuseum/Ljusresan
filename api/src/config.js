@@ -9,7 +9,8 @@ module.exports = {
 
   dmx: {
     host: process.env.DMX_HOST,
-    port: process.env.DMX_PORT
+    port: process.env.DMX_PORT,
+    timeout: process.env.DMX_TIMEOUT
   },
 
   commandMapping: {
@@ -55,7 +56,4 @@ module.exports = {
     6: {
       27: {on: null, off: null}
     }
-  },
-
-  lightTimeout: process.env.LIGHT_TIMEOUT
 }
