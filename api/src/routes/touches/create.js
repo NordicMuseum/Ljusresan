@@ -18,18 +18,4 @@ module.exports = function * (next) {
       this.status = 404
     }
   }
-
-  if (action === 'remove') {
-    if (isFinalStation) {
-      session.set('ended', true)
-      yield session.save()
-    } else {
-      session.set('stations', union(
-        session.get('stations'), [`${room}:${station}`]
-      ))
-      yield session.save()
-    }
-
-    this.response.status = 204
-  }
 }
