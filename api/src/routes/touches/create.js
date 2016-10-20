@@ -1,3 +1,6 @@
+const config = require('../../config')
+const dmx = require('../../modules/dmx')
+
 module.exports = function * (next) {
   const session = this.session
   const {action, staticUserData: {room, station}} = this.request.body
@@ -10,6 +13,38 @@ module.exports = function * (next) {
         session.set('ended', true)
       } else {
         session.set(`stations.${room}.${station}`, true)
+
+        // Check for stations within the same room with an `dependencies` [].
+        // Given this datastructure for example:
+        //
+        //  3: [
+        //    {station: 1, ...},
+        //    {station: 2: ...},
+        //    {
+        //      station: 3,
+        //      T: '04',
+        //      P: '09',
+        //      D: '01',
+        //      dependsOn: [1, 2]
+        //    }
+        //  ]
+        //
+        // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
+
+        const withDependencies = config.commandMapping[room].filter(s => {
+          return s.dependsOn
+        })
+
+        withDependencies.forEach(s => {
+          const shouldTurnOn = s.dependsOn.every(id => {
+            return session.get('stations')[room][id]
+          })
+
+          if (shouldTurnOn) {
+            dmx.on(room, s.id)
+            setTimeout(() => { dmx.off(room, s.id) }, config.dmx.timeout)
+          }
+        })
       }
 
       yield session.save()
