@@ -18,7 +18,7 @@ module.exports = class Session extends Model {
 
   defaults () {
     return {
-      stations: [], ended: false
+      stations: {}, ended: false
     }
   }
 
