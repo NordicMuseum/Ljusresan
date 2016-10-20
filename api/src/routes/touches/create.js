@@ -1,4 +1,3 @@
-const light = require('../../modules/light')
 const union = require('lodash/union')
 
 module.exports = function * (next) {
@@ -9,7 +8,6 @@ module.exports = function * (next) {
 
   if (action === 'touch') {
     try {
-      light.on(room, station)
       this.status = 204
     } catch (error) {
       this.status = 404
@@ -23,8 +21,6 @@ module.exports = function * (next) {
       session.set('stations', union(
         session.get('stations'), [`${room}:${station}`]
       ))
-
-      light.off(room, station)
     }
 
     yield session.save()
