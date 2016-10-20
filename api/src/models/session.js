@@ -1,3 +1,4 @@
+const config = require('../config')
 const Model = require('mongorito').Model
 const parseDestination = (destination) => {
   return {
