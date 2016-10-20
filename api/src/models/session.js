@@ -21,8 +21,10 @@ module.exports = class Session extends Model {
   }
 
   * validate () {
-    if (this.changed.stations) {
-      const path = Object.keys(flatten(this.changed.stations))[0]
+    const {stations, ended} = this.changed
+
+    if (stations && !ended) {
+      const path = Object.keys(flatten(stations))[0]
       if (!has(config.commandMapping, path)) {
         throw new Error('Destination not found in commandMapping')
       }
@@ -30,8 +32,10 @@ module.exports = class Session extends Model {
   }
 
   * toggleLight () {
-    if (this.changed.stations) {
-      const obj = Object.keys(flatten(this.changed.stations))[0].split('.')
+    const {stations, ended} = this.changed
+
+    if (stations && !ended) {
+      const obj = Object.keys(flatten(stations))[0].split('.')
       const room = obj[0]
       const station = obj[1]
 
