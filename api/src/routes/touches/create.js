@@ -8,6 +8,11 @@ module.exports = function * (next) {
 
   if (action === 'touch') {
     try {
+      session.set('stations', union(
+        session.get('stations'), [`${room}:${station}`]
+      ))
+      yield session.save()
+
       this.status = 204
     } catch (error) {
       this.status = 404
@@ -17,13 +22,13 @@ module.exports = function * (next) {
   if (action === 'remove') {
     if (isFinalStation) {
       session.set('ended', true)
+      yield session.save()
     } else {
       session.set('stations', union(
         session.get('stations'), [`${room}:${station}`]
       ))
+      yield session.save()
     }
-
-    yield session.save()
 
     this.response.status = 204
   }
