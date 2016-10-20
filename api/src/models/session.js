@@ -4,6 +4,14 @@ const has = require('lodash/has')
 const dmx = require('../modules/DMX')
 const flatten = require('flat')
 
+const parseStations = (stations) => {
+  const obj = Object.keys(flatten(stations))[0].split('.')
+  return {
+    room: parseInt(obj[0], 10),
+    station: parseInt(obj[1], 10)
+  }
+}
+
 module.exports = class Session extends Model {
   collection () {
     return 'sessions'
@@ -22,23 +30,23 @@ module.exports = class Session extends Model {
 
   * validate () {
     const {stations, ended} = this.changed
-
     if (stations && !ended) {
-      const path = Object.keys(flatten(stations))[0]
-      if (!has(config.commandMapping, path)) {
-        throw new Error('Destination not found in commandMapping')
+      const {room, station} = parseStations(stations)
+
+      const found = config.commandMapping[room].find(s => {
+        return s.id === station
+      })
+
+      if (!found) {
+        throw new Error('Destination not found in `commandMapping`')
       }
     }
   }
 
   * toggleLight () {
     const {stations, ended} = this.changed
-
     if (stations && !ended) {
-      const obj = Object.keys(flatten(stations))[0].split('.')
-      const room = obj[0]
-      const station = obj[1]
-
+      const {room, station} = parseStations(stations)
       dmx.on(room, station)
       setTimeout(() => { dmx.off(room, station) }, config.dmx.timeout)
     }

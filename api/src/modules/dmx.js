@@ -7,12 +7,12 @@ class DMX {
   }
 
   on (room, station) {
-    const {T, P, D} = config.commandMapping[room][station]
+    const {T, P, D} = config.commandMapping[room].find(s => s.id === station)
     this.client.write(`>_T${T}_P${P}_D${D}_ON_<`)
   }
 
   off (room, station) {
-    const {T, P, D} = config.commandMapping[room][station]
+    const {T, P, D} = config.commandMapping[room].find(s => s.id === station)
     this.client.write(`>_T${T}_P${P}_D${D}_OFF_<`)
   }
 }
