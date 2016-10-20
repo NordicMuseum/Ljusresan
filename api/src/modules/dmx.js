@@ -1,7 +1,7 @@
 const config = require('../config')
 const net = require('net')
 
-class Light {
+class DMX {
   constructor (host, port) {
     this.client = net.createConnection(port, host)
   }
@@ -17,4 +17,4 @@ class Light {
   }
 }
 
-module.exports = new Light(config.dmx.host, config.dmx.port)
+module.exports = new DMX(config.dmx.host, config.dmx.port)

@@ -2,7 +2,7 @@ const config = require('../config')
 const Model = require('mongorito').Model
 const has = require('lodash/has')
 const difference = require('lodash/difference')
-const light = require('../modules/light')
+const dmx = require('../modules/DMX')
 
 const parseDestination = (destination) => {
   return {
@@ -46,7 +46,7 @@ module.exports = class Session extends Model {
 
     if (destination) {
       const {room, station} = parseDestination(destination)
-      light.on(room, station)
+      dmx.on(room, station)
     }
   }
 }
