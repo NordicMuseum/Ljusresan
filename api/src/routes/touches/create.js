@@ -1,4 +1,5 @@
-const union = require('lodash/union')
+const config = require('../../config')
+const dmx = require('../../modules/dmx')
 
 module.exports = function * (next) {
   const session = this.session
@@ -11,15 +12,49 @@ module.exports = function * (next) {
       if (isFinalStation) {
         session.set('ended', true)
       } else {
-        session.set('stations', union(
-          session.get('stations'), [`${room}:${station}`]
-        ))
+        session.set(`stations.${room}.${station}`, true)
+
+        // Check for stations within the same room with an `dependencies` [].
+        // Given this datastructure for example:
+        //
+        //  3: [
+        //    {station: 1, ...},
+        //    {station: 2: ...},
+        //    {
+        //      station: 3,
+        //      T: '04',
+        //      P: '09',
+        //      D: '01',
+        //      dependsOn: [1, 2]
+        //    }
+        //  ]
+        //
+        // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
+
+        const withDependencies = config.commandMapping[room].filter(s => {
+          return s.dependsOn
+        })
+
+        withDependencies.forEach(s => {
+          const shouldTurnOn = s.dependsOn.every(id => {
+            return session.get('stations')[room][id]
+          })
+
+          if (shouldTurnOn) {
+            dmx.on(room, s.id)
+            setTimeout(() => { dmx.off(room, s.id) }, config.dmx.timeout)
+          }
+        })
       }
 
       yield session.save()
 
       this.status = 204
     } catch (error) {
+      this.body = {
+        error: error.message
+      }
+
       this.status = 404
     }
   }
