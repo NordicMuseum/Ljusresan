@@ -1,6 +1,6 @@
 const config = require('../config')
 const Model = require('mongorito').Model
-const dmx = require('../modules/DMX')
+const dmx = require('../modules/dmx')
 const flatten = require('flat')
 
 const parseStations = (stations) => {
