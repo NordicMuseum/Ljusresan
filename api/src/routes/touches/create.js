@@ -31,18 +31,18 @@ module.exports = function * (next) {
         //
         // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
 
-        const withDependencies = config.commandMapping[room].filter(s => {
-          return s.dependsOn
+        const withDependencies = config.commandMapping[room].filter(station => {
+          return station.dependsOn
         })
 
-        withDependencies.forEach(s => {
-          const shouldTurnOn = s.dependsOn.every(id => {
+        withDependencies.forEach(station => {
+          const shouldTurnOn = station.dependsOn.every(id => {
             return session.get('stations')[room][id]
           })
 
           if (shouldTurnOn) {
-            dmx.on(room, s.id)
-            setTimeout(() => { dmx.off(room, s.id) }, config.dmx.timeout)
+            dmx.on(room, station.id)
+            setTimeout(() => { dmx.off(room, station.id) }, config.dmx.timeout)
           }
         })
       }
