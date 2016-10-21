@@ -10,7 +10,7 @@ module.exports = function * (next) {
   if (action === 'touch') {
     try {
       if (isFinalStation) {
-        session.set('ended', true)
+        session.set('hasEnded', true)
       } else {
         session.set(`stations.${room}.${station}`, true)
 
