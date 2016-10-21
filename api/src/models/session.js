@@ -43,7 +43,8 @@ module.exports = class Session extends Model {
   }
 
   * toggleLight () {
-    const {stations, hasEnded} = this.changed
+    const stations = this.changed
+    const hasEnded = this.attributes.hasEnded
     if (stations && !hasEnded) {
       const {room, station} = parseStations(stations)
       dmx.on(room, station)
