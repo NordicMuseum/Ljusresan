@@ -15,13 +15,13 @@ module.exports = function * (next) {
         session.set(`stations.${room}.${station}`, true)
 
         // Check for stations within the same room with an `dependencies` [].
-        // Given this datastructure for example:
+        // Given this structure for example:
         //
         //  3: [
-        //    {station: 1, ...},
-        //    {station: 2: ...},
+        //    {id: 1, ...},
+        //    {id: 2: ...},
         //    {
-        //      station: 3,
+        //      id: 3,
         //      T: '04',
         //      P: '09',
         //      D: '01',
