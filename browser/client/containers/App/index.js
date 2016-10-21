@@ -3,11 +3,15 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { TweenMax } from 'gsap'
+import bodymovin from 'bodymovin'
 import 'reset-css/reset.css'
 
 import * as SessionActions from '../../actions/session'
 import { POLLING_FREQUENCY } from '../../constants'
 import style from './style.css'
+
+import hitAnimation from '../../assets/json/hit.json'
+import missAnimation from '../../assets/json/miss.json'
 
 class App extends Component {
 
@@ -18,12 +22,21 @@ class App extends Component {
     TweenMax.to('#status-section', 0, {
       opacity: 0
     })
+    TweenMax.allTo([
+      `.${style['room-1']}`,
+      `.${style['room-2']}`,
+      `.${style['room-3']}`,
+      `.${style['room-4']}`,
+      `.${style['room-5']}`
+    ], 0, {
+      opacity: 0
+    })
   }
 
   componentWillReceiveProps (nextProps) {
     if (
       nextProps.session &&
-      this.props.session.updatedAt &&
+      // this.props.session.updatedAt &&
       nextProps.session.updatedAt !== this.props.session.updatedAt) {
 
       this.transitionToStatusSection()
@@ -46,6 +59,24 @@ class App extends Component {
       opacity: 1,
       delay: 0.5
     })
+    TweenMax.allTo([
+      `.${style['room-1']}`,
+      `.${style['room-2']}`,
+      `.${style['room-3']}`,
+      `.${style['room-4']}`,
+      `.${style['room-5']}`
+    ], 0.5, {
+      delay: 1,
+      opacity: 1
+    })
+
+    bodymovin.loadAnimation({
+      container: document.getElementById('room-1'), // the dom element
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      animationData: hitAnimation
+    });
   }
 
   render() {
@@ -54,7 +85,7 @@ class App extends Component {
       <div className={style['normal']}>
         <h1>Ljusresan • The Journey of Light</h1>
         <section id="info-section" className={style['info-section']}>
-          <div className={style['flame']}>flame</div>
+          <div className={style['flame']}><img src="../../assets/gif/light.gif"/></div>
           <div className={style['copy-content']}>
             <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -68,11 +99,11 @@ class App extends Component {
         </section>
         <section id="status-section" className={style['status-section']}>
           <ol className={style['rooms']}>
-            <li className={style['room-1']}></li>
-            <li className={style['room-2']}></li>
-            <li className={style['room-3']}></li>
-            <li className={style['room-4']}></li>
-            <li className={style['room-5']}></li>
+            <li id="room-1" className={style['room-1']}></li>
+            <li id="room-2" className={style['room-2']}></li>
+            <li id="room-3" className={style['room-3']}></li>
+            <li id="room-4" className={style['room-4']}></li>
+            <li id="room-5" className={style['room-5']}></li>
           </ol>
           <div className={style['copy-content']}>
             <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

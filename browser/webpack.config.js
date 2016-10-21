@@ -47,6 +47,14 @@ module.exports = {
         loader: 'url-loader'
       },
       {
+        test : /\.(gif)/,
+        loader: 'url-loader'
+      },
+      {
+        test : /\.(json)/,
+        loader: 'json-loader'
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loaders: [
