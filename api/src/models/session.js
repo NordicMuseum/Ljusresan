@@ -43,7 +43,7 @@ module.exports = class Session extends Model {
   }
 
   * toggleLight () {
-    const stations = this.changed
+    const stations = this.changed.stations
     const hasEnded = this.attributes.hasEnded
     if (stations && !hasEnded) {
       const {room, station} = parseStations(stations)
