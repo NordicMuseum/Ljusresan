@@ -42,9 +42,9 @@ class App extends Component {
       timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 1 }))
       timeline.add(TweenMax.to('#headline', 0.5, { opacity: 1 }))
       timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0, delay: 5 }))
-      timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
     }
 
+    timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1 }))
@@ -90,6 +90,7 @@ class App extends Component {
 
   softReset (duration=0, parameters={}) {
     return new TimelineMax(parameters)
+    .add(TweenMax.to('#status-section', duration, { overwrite: 1, opacity: 0 }))
 
     .add(TweenMax.allTo([
       `.${style['room-1']}`,
@@ -98,6 +99,7 @@ class App extends Component {
       `.${style['room-4']}`,
       `.${style['room-5']}`
     ], duration, {
+      overwrite: 1,
       opacity: 0,
       onComplete: () => {
         [1, 2, 3, 4, 5].forEach((i) => document.getElementById(`room-${i}`).innerHTML = '')
@@ -107,7 +109,7 @@ class App extends Component {
 
   transitionToStatusSection () {
     clearTimeout(this._timeout)
-    if (document.getElementById('status-section').style.opacity === 1) {
+    if (document.getElementById('status-section').style.opacity > 0.9) {
       this.softReset(0.5, {
         onComplete: this.makeRevealTimeline.bind(this, true)
       })
