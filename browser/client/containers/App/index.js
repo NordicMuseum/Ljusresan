@@ -39,11 +39,17 @@ class App extends Component {
     timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0 }))
     timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
 
-    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 1) }))
-    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 2) }))
-    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 3) }))
-    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 4) }))
-    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 5) }))
+    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.2, {overwrite: 1, opacity: 1 }))
+
+    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 1) }))
+    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 2) }))
+    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 3) }))
+    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 4) }))
+    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 5) }))
 
     return timeline
   }
@@ -110,14 +116,8 @@ class App extends Component {
         <section id="info-section" className={style['info-section']}>
           <div className={style['flame']}><img src="../../assets/gif/light.gif"/></div>
           <div className={style['copy-content']}>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat.</div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat.</div>
+            <div>Din ljusresa närmar sig sitt slut.<br/><br/>Låt oss se om du klarat alla<br/>uppgifter.</div>
+            <div>Your Journey of Light is coming<br/>to an end.<br/><br/>Let’s have a look if you’ve<br/>accomplished all the task.</div>
           </div>
         </section>
         <section id="status-section" className={style['status-section']}>
@@ -129,14 +129,8 @@ class App extends Component {
             <li id="room-5" className={style['room-5']}></li>
           </ol>
           <div className={style['copy-content']}>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat.</div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat.</div>
+            <div>Du har använt ljuset klokt men<br/>missat något i rum 2 och 4.<br/>Ta ett extra varv och kom sedan<br/>tillbaka hit.</div>
+            <div>You have used the light wisely but<br/>missed something in room 2 and 4.<br/>Look it up – then come back here.</div>
           </div>
         </section>
       </div>

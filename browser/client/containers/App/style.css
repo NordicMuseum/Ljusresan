@@ -26,7 +26,7 @@ body {
 }
 
 .normal {
-  font: 30px/32px Primer, Arial, sans-serif;
+  font: 38px/45px Primer, Arial, sans-serif;
   font-weight: 600;
   text-align: center;
   padding-top: 2em;
@@ -51,19 +51,22 @@ body {
   padding: 0em 2em 2em 2em;
   box-sizing: border-box;
   position: absolute;
+  width: 100%;
 }
 .normal .status-section {
   padding: 0em 2em 2em 2em;
   box-sizing: border-box;
   position: absolute;
+  width: 100%;
 }
 
 .normal .copy-content {
   display: flex;
 }
 .normal .copy-content > div {
-  padding: 2em;
+  padding: 1em;
   text-align: left;
+  flex: 1;
 }
 
 .normal .rooms {

@@ -2,7 +2,7 @@ const Session = require('../../models/session')
 
 module.exports = function * (next) {
   const session = yield Session.where({
-    ended: true
+    hasEnded: true
   }).sort({
     updated_at: -1
   }).findOne()
