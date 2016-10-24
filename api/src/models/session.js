@@ -51,4 +51,10 @@ module.exports = class Session extends Model {
       setTimeout(() => { dmx.off(room, station) }, config.dmx.timeout)
     }
   }
+
+  static mostRecentFinalStationVisit () {
+    return this.sort({ 'stations.6.26': -1 }).limit(1).find({
+      'stations.6.26': { $exists: true }, hasEnded: false
+    }).then(docs => docs[0])
+  }
 }
