@@ -21,8 +21,8 @@ router.post('/touches',
 router.get('/statuses',
   require('./src/routes/statuses/show'))
 
-router.get('/final-station',
-  require('./src/routes/touches/final-station'))
+router.get('/statuses/final',
+  require('./src/routes/statuses/final'))
 
 /**
  * Configure application
