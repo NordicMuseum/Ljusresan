@@ -24,6 +24,11 @@ class App extends Component {
   componentDidMount () {
     this.startPolling()
 
+    document.getElementsByTagName('body')[0].addEventListener('touch', (event) => {
+      event.prevenDefault()
+      event.stopPropagation()
+    })
+
     this.reset()
   }
 
