@@ -27,6 +27,9 @@ const validateCompletion = (roomId, numStations) => {
 
 export default handleActions({
   'sync session' (state, action) {
+    if (!action.payload) {
+      return initialState
+    }
     return {
       updatedAt: action.payload.updatedAt,
       tagUid: action.payload.tagUid,
@@ -46,11 +49,9 @@ export default handleActions({
 
         .reduce((previous, value, index, origin) => {
           const roomId = value.id
-          console.log(value)
           const roomData = {
             ...value
           }
-          delete roomData.id
           return {
             ...previous,
             [roomId]: roomData
