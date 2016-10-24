@@ -1,2 +1,3 @@
 
 export const POLLING_FREQUENCY = 1000
+export const STATUS_DECAY_TIMEOUT = 45000
