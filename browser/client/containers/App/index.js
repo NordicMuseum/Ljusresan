@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { TweenMax } from 'gsap'
+import { TweenMax, TimelineMax } from 'gsap'
 import bodymovin from 'bodymovin'
 import 'reset-css/reset.css'
 
@@ -15,32 +15,37 @@ import missAnimation from '../../assets/json/miss.json'
 
 class App extends Component {
 
+  constructor (props) {
+    super(props)
+  }
+
   componentDidMount () {
     this.startPolling()
 
-    // set initial opacity
-    TweenMax.to('#status-section', 0, {
-      opacity: 0
-    })
-    TweenMax.allTo([
-      `.${style['room-1']}`,
-      `.${style['room-2']}`,
-      `.${style['room-3']}`,
-      `.${style['room-4']}`,
-      `.${style['room-5']}`
-    ], 0, {
-      opacity: 0
-    })
+    this.reset()
   }
 
   componentWillReceiveProps (nextProps) {
     if (
       nextProps.session &&
-      // this.props.session.updatedAt &&
+      this.props.session.updatedAt &&
       nextProps.session.updatedAt !== this.props.session.updatedAt) {
-
       this.transitionToStatusSection()
     }
+  }
+
+  makeRevealTimeline () {
+    const timeline = new TimelineMax()
+    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0 }))
+    timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
+
+    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 1) }))
+    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 2) }))
+    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 3) }))
+    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 4) }))
+    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 5) }))
+
+    return timeline
   }
 
   startPolling () {
@@ -51,32 +56,50 @@ class App extends Component {
     }, POLLING_FREQUENCY))
   }
 
-  transitionToStatusSection () {
-    TweenMax.to('#info-section', 0.5, {
-      opacity: 0
-    })
-    TweenMax.to('#status-section', 1, {
-      opacity: 1,
-      delay: 0.5
-    })
-    TweenMax.allTo([
+  reset (duration=0, parameters={}) {
+    return new TimelineMax(parameters)
+
+    .add(TweenMax.to('#status-section', duration, { opacity: 0 }))
+    .add(TweenMax.to('#info-section', duration, { opacity: 1 }))
+    .add(TweenMax.allTo([
       `.${style['room-1']}`,
       `.${style['room-2']}`,
       `.${style['room-3']}`,
       `.${style['room-4']}`,
       `.${style['room-5']}`
-    ], 0.5, {
-      delay: 1,
-      opacity: 1
-    })
+    ], 0, {
+      opacity: 0,
+      onComplete: () => {
+        [1, 2, 3, 4, 5].forEach((i) => document.getElementById(`room-${i}`).innerHTML = '')
+      }
+    }))
+  }
 
+  transitionToStatusSection () {
+    if (document.getElementById('status-section').style.opacity > 0) {
+      this.reset(0.5, {
+        onComplete: this.makeRevealTimeline.bind(this)
+      })
+    } else {
+      this.makeRevealTimeline()
+    }
+  }
+
+  runBodyMovin(roomId) {
     bodymovin.loadAnimation({
-      container: document.getElementById('room-1'), // the dom element
+      container: document.getElementById(`room-${roomId}`), // the dom element
       renderer: 'svg',
       loop: false,
       autoplay: true,
-      animationData: hitAnimation
-    });
+      animationData: this.getRoomStatus(roomId) ? hitAnimation : missAnimation
+    })
+  }
+
+  getRoomStatus (roomId) {
+    return (
+      this.props.session.stations[roomId] &&
+      this.props.session.stations[roomId].completed
+    )
   }
 
   render() {

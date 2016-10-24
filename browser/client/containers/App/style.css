@@ -75,10 +75,9 @@ body {
   width: 80px;
   height: 80px;
   display: block;
-  border-radius: 50ex;
-  background-color: white;
   margin-left: 100px;
   margin-top: 90px;
+  position: relative;
 }
 .normal .rooms li:before {
   content: "";
@@ -89,6 +88,11 @@ body {
   margin-top: -40px;
   background-size: 100%;
   background-repeat: no-repeat;
+}
+.normal .rooms li svg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 
 .normal .rooms li.room-1 { margin-left: 150px; }
