@@ -14,7 +14,7 @@ module.exports = function * (next) {
       } else {
         session.set(`stations.${room}.${station}`, true)
 
-        // Check for stations within the same room with an `dependencies` [].
+        // Check for stations within the same room with an `dependsOn` [].
         // Given this structure for example:
         //
         //  3: [
