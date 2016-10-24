@@ -39,11 +39,17 @@ class App extends Component {
     timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0 }))
     timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
 
-    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 1) }))
-    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 2) }))
-    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 3) }))
-    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 4) }))
-    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.2, {overwrite: 1, opacity: 1, onComplete: this.runBodyMovin.bind(this, 5) }))
+    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.2, {overwrite: 1, opacity: 1 }))
+    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.2, {overwrite: 1, opacity: 1 }))
+
+    timeline.add(TweenMax.to(`.${style['room-1']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 1) }))
+    timeline.add(TweenMax.to(`.${style['room-2']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 2) }))
+    timeline.add(TweenMax.to(`.${style['room-3']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 3) }))
+    timeline.add(TweenMax.to(`.${style['room-4']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 4) }))
+    timeline.add(TweenMax.to(`.${style['room-5']}`, 0.3, {opacity: 1, onComplete: this.runBodyMovin.bind(this, 5) }))
 
     return timeline
   }
