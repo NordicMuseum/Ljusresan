@@ -4,7 +4,7 @@ module.exports = function * (next) {
       stations: this.session.get('stations')
     }
 
-    this.response.status = 200
+    this.response.status = 204
   } else {
     this.response.status = 404
   }
