@@ -10,6 +10,6 @@ module.exports = function * (next) {
     this.body = {
       message: error.message
     }
-    this.status = 500
+    this.status = 404
   }
 }
