@@ -34,12 +34,14 @@ class App extends Component {
     }
   }
 
-  makeRevealTimeline () {
+  makeRevealTimeline (soft=false) {
     const timeline = new TimelineMax()
-    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 1 }))
-    timeline.add(TweenMax.to('#headline', 0.5, { opacity: 1 }))
-    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0, delay: 5 }))
-    timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
+    if (!soft) {
+      timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 1 }))
+      timeline.add(TweenMax.to('#headline', 0.5, { opacity: 1 }))
+      timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0, delay: 5 }))
+      timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
+    }
 
     timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1 }))
@@ -84,10 +86,27 @@ class App extends Component {
     }))
   }
 
+  softReset (duration=0, parameters={}) {
+    return new TimelineMax(parameters)
+
+    .add(TweenMax.allTo([
+      `.${style['room-1']}`,
+      `.${style['room-2']}`,
+      `.${style['room-3']}`,
+      `.${style['room-4']}`,
+      `.${style['room-5']}`
+    ], duration, {
+      opacity: 0,
+      onComplete: () => {
+        [1, 2, 3, 4, 5].forEach((i) => document.getElementById(`room-${i}`).innerHTML = '')
+      }
+    }))
+  }
+
   transitionToStatusSection () {
     if (document.getElementById('status-section').style.opacity > 0) {
-      this.reset(0.5, {
-        onComplete: this.makeRevealTimeline.bind(this)
+      this.softReset(0.5, {
+        onComplete: this.makeRevealTimeline.bind(this, true)
       })
     } else {
       this.makeRevealTimeline()
