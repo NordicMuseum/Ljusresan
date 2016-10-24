@@ -31,7 +31,7 @@ export default handleActions({
       return initialState
     }
     return {
-      updatedAt: action.payload.updatedAt,
+      updatedAt: action.payload.updated_at,
       tagUid: action.payload.tagUid,
       // stations: action.payload.stations, // .map() - check for room completetion
       stations: Object.keys(action.payload.stations)
