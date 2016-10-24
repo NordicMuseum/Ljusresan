@@ -36,7 +36,9 @@ class App extends Component {
 
   makeRevealTimeline () {
     const timeline = new TimelineMax()
-    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0 }))
+    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 1 }))
+    timeline.add(TweenMax.to('#headline', 0.5, { opacity: 1 }))
+    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0, delay: 5 }))
     timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
 
     timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
@@ -65,8 +67,9 @@ class App extends Component {
   reset (duration=0, parameters={}) {
     return new TimelineMax(parameters)
 
-    .add(TweenMax.to('#status-section', duration, { opacity: 0 }))
-    .add(TweenMax.to('#info-section', duration, { opacity: 1 }))
+    .add(TweenMax.to('#headline', duration, { opacity: 0 }))
+    .add(TweenMax.to('#status-section', duration, { opacity: 0 }), `-${duration}`)
+    .add(TweenMax.to('#info-section', duration, { opacity: 0 }))
     .add(TweenMax.allTo([
       `.${style['room-1']}`,
       `.${style['room-2']}`,
@@ -112,7 +115,7 @@ class App extends Component {
     const { session, actions, children } = this.props
     return (
       <div className={style['normal']}>
-        <h1>Ljusresan • The Journey of Light</h1>
+        <h1 id="headline">Ljusresan • The Journey of Light</h1>
         <section id="info-section" className={style['info-section']}>
           <div className={style['flame']}><img src="../../assets/gif/light.gif"/></div>
           <div className={style['copy-content']}>
