@@ -4,6 +4,8 @@ module.exports = function * (next) {
   try {
     session.set('hasEnded', true)
     yield session.save()
+
+    this.status = 200
   } catch (error) {
     this.body = {
       message: error.message
