@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions'
 import request from 'superagent-bluebird-promise'
 
 export const sync = () => (dispatch) => {
-  return request.get(`/api/final-station`).send()
+  return request.get(`/api/statuses/final`).send()
 
   .then(({body}) => {
     dispatch({
@@ -14,7 +14,7 @@ export const sync = () => (dispatch) => {
 }
 
 export const syncObserver = () => (dispatch) => {
-  return request.get(`/api/final-station`).send()
+  return request.get(`/api/statuses/observer`).send()
 
   .then(({body}) => {
     dispatch({
