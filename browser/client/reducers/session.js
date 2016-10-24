@@ -8,20 +8,20 @@ const initialState = {
   rooms: []
 }
 
-const validateCompletion = (room) => {
-  switch (room.id) {
+const validateCompletion = (roomId, numStations) => {
+  switch (parseInt(roomId, 10)) {
     case 1:
-      return !!(room.stations.length)
+      return !!(numStations)
     case 2:
-      return !!(room.stations.length === 3)
+      return !!(numStations === 3)
     case 3:
-      return !!(room.stations.length > 5)
+      return !!(numStations > 5)
     case 4:
-      return !!(room.stations.length === 8)
+      return !!(numStations === 8)
     case 5:
-      return !!(room.stations.length === 6)
+      return !!(numStations === 6)
     case 6:
-      return !!(room.stations.length)
+      return !!(numStations)
   }
 }
 
@@ -30,22 +30,32 @@ export default handleActions({
     return {
       updatedAt: action.payload.updatedAt,
       tagUid: action.payload.tagUid,
-      stations: action.payload.stations,
-      rooms: action.payload.stations.reduce((previous, data, index, origin) => {
-        let [station, room] = data.split(':')
-        room = parseInt(room, 10)
-        if (!previous[room - 1]) {
-          previous[room - 1] = {
-            id: room,
-            completed: false,
-            stations: []
+      // stations: action.payload.stations, // .map() - check for room completetion
+      stations: Object.keys(action.payload.stations)
+
+        .map((roomId) => (
+          {
+            ...action.payload.stations[roomId],
+            id: roomId,
+            completed: validateCompletion(
+              roomId,
+              Object.keys(action.payload.stations[roomId]).length
+            )
           }
-        }
-        const target = previous[room - 1]
-        target.stations.push(station)
-        target.completed = validateCompletion(target)
-        return previous
-      }, [])
+        ))
+
+        .reduce((previous, value, index, origin) => {
+          const roomId = value.id
+          console.log(value)
+          const roomData = {
+            ...value
+          }
+          delete roomData.id
+          return {
+            ...previous,
+            [roomId]: roomData
+          }
+        }, {})
     }
   }
 }, initialState)
