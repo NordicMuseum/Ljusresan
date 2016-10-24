@@ -6,9 +6,9 @@ Nordiskt Ljus is a simple API allowing devices (...)
 ## Group Events
 Resources related to events in the API.
 
-## Touches Collection [/touches]
+## Touches collection [/touches]
 
-### Create a new Touch event [POST]
+### Create touch event [POST]
 + action (string) - The action, which can be "touch" or "remove"
 + staticUserData (object) - The static user data
 
@@ -17,7 +17,6 @@ Resources related to events in the API.
 
             {
               "action": "touch",
-              "tagUid": "414c0310-f936-48b8-ac53-88271f87d8ad",
               "staticUserData": {
                 "room": 1,
                 "station": 1
@@ -33,9 +32,9 @@ Resources related to events in the API.
 ## Group Status
 Resources related to statuses in the API.
 
-## Statuses Collection [/statuses]
+## Statuses collection [/statuses]
 
-### Get Session Status By Tag UID [GET]
+### Retrieve session status by tagUid [GET]
 + Request (application/json)
     + Headers
 
@@ -50,3 +49,16 @@ Resources related to statuses in the API.
             "1:4"
           ]
         }
+
+## Group Sessions
+Resources related to sessions in the API.
+
+## Sessions collection [/sessions]
+
+### Delete session [DELETE]
++ Request (application/json)
+    + Headers
+
+            X-TagUid: some-tag-uid
+
++ Response 204 (application/json)
