@@ -25,14 +25,16 @@ export const syncObserver = () => (dispatch) => {
 }
 
 export const endSession = (tagUid) => (dispatch) => {
-  // TODO: some kind of request to end a session here...
+  return request.del(`/api/sessions`)
 
-  // return request.get(`/api/final-station`).send()
+  .set('X-tagUid', tagUid)
 
-  // .then(({body}) => {
-  //   dispatch({
-  //     type: 'sync session',
-  //     payload: body
-  //   })
-  // })
+  .send()
+
+  .then(({body}) => {
+    dispatch({
+      type: 'sync session',
+      payload: body
+    })
+  })
 }
