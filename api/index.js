@@ -12,6 +12,9 @@ Mongorito.connect(config.database.host + '/nordisktljus')
 const app = require('koa')()
 const router = require('koa-router')()
 
+router.del('/sessions',
+  require('./src/routes/sessions/delete'))
+
 router.post('/touches',
   require('./src/routes/touches/create'))
 
