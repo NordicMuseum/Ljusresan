@@ -111,6 +111,42 @@ class App extends Component {
     )
   }
 
+  getStatusList () {
+    return [1, 2, 3, 4, 5].reduce((result, index) => {
+      result[index] = this.getRoomStatus(index)
+      return result
+    }, [])
+  }
+
+  getStatusCopy (locale) {
+    const status = this.getStatusList()
+    const missing = status.reduce((result, completed, room) => {
+      if (!completed) result.push(room + 1)
+      return result
+    }, [])
+    if (locale === 'se') {
+      if (missing.length) { // something missing
+        return (
+          <div>Du har använt ljuset klokt men<br/>missat något i rum {missing.join(', ').replace(/, (\d)$/, ' och $1')}.<br/>Ta ett extra varv och kom sedan<br/>tillbaka hit.</div>
+        )
+      } else { // all complete
+        return (
+          <div>Grattis. Du har använt ljuset klokt.<br/>Lämna ditt ljus till personalen i<br/>audioguidedisken och hämta upp<br/>din belöning. </div>
+        )
+      }
+    } else {
+      if (missing.length) { // something missing
+        return (
+          <div>You have used the light wisely but<br/>missed something in room {missing.join(', ').replace(/, (\d)$/, ' and $1')}.<br/>Look it up – then come back here.</div>
+        )
+      } else { // all complete
+        return (
+          <div>Congratulations. You’ve used the<br/>light wisely. You’ll find a reward<br/>waiting for you at the audioguide<br/>disk. Bring your light. </div>
+        )
+      }
+    }
+  }
+
   render() {
     const { session, actions, children } = this.props
     return (
@@ -132,8 +168,8 @@ class App extends Component {
             <li id="room-5" className={style['room-5']}></li>
           </ol>
           <div className={style['copy-content']}>
-            <div>Du har använt ljuset klokt men<br/>missat något i rum 2 och 4.<br/>Ta ett extra varv och kom sedan<br/>tillbaka hit.</div>
-            <div>You have used the light wisely but<br/>missed something in room 2 and 4.<br/>Look it up – then come back here.</div>
+            {this.getStatusCopy('se')}
+            {this.getStatusCopy('en')}
           </div>
         </section>
       </div>
