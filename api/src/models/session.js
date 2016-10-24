@@ -18,7 +18,7 @@ module.exports = class Session extends Model {
 
   defaults () {
     return {
-      stations: {}, ended: false
+      stations: {}, hasEnded: false
     }
   }
 
@@ -28,8 +28,8 @@ module.exports = class Session extends Model {
   }
 
   * validate () {
-    const {stations, ended} = this.changed
-    if (stations && !ended) {
+    const {stations, hasEnded} = this.changed
+    if (stations && !hasEnded) {
       const {room, station} = parseStations(stations)
 
       const found = config.commandMapping[room].find(s => {
@@ -43,8 +43,9 @@ module.exports = class Session extends Model {
   }
 
   * toggleLight () {
-    const {stations, ended} = this.changed
-    if (stations && !ended) {
+    const stations = this.changed.stations
+    const hasEnded = this.attributes.hasEnded
+    if (stations && !hasEnded) {
       const {room, station} = parseStations(stations)
       dmx.on(room, station)
       setTimeout(() => { dmx.off(room, station) }, config.dmx.timeout)

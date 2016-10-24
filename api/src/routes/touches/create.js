@@ -5,23 +5,23 @@ module.exports = function * (next) {
   const session = this.session
   const {action, staticUserData: {room, station}} = this.request.body
 
-  const isFinalStation = (room === 6 && station === 27)
+  const isFinalStation = (room === 6 && station === 26)
 
   if (action === 'touch') {
     try {
       if (isFinalStation) {
-        session.set('ended', true)
+        session.set('hasEnded', true)
       } else {
         session.set(`stations.${room}.${station}`, true)
 
-        // Check for stations within the same room with an `dependencies` [].
-        // Given this datastructure for example:
+        // Check for stations within the same room with an `dependsOn` [].
+        // Given this structure for example:
         //
         //  3: [
-        //    {station: 1, ...},
-        //    {station: 2: ...},
+        //    {id: 1, ...},
+        //    {id: 2: ...},
         //    {
-        //      station: 3,
+        //      id: 3,
         //      T: '04',
         //      P: '09',
         //      D: '01',
@@ -31,18 +31,18 @@ module.exports = function * (next) {
         //
         // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
 
-        const withDependencies = config.commandMapping[room].filter(s => {
-          return s.dependsOn
+        const withDependencies = config.commandMapping[room].filter(station => {
+          return station.dependsOn
         })
 
-        withDependencies.forEach(s => {
-          const shouldTurnOn = s.dependsOn.every(id => {
+        withDependencies.forEach(station => {
+          const shouldTurnOn = station.dependsOn.every(id => {
             return session.get('stations')[room][id]
           })
 
           if (shouldTurnOn) {
-            dmx.on(room, s.id)
-            setTimeout(() => { dmx.off(room, s.id) }, config.dmx.timeout)
+            dmx.on(room, station.id)
+            setTimeout(() => { dmx.off(room, station.id) }, config.dmx.timeout)
           }
         })
       }
