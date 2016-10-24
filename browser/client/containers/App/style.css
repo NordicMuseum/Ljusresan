@@ -73,6 +73,7 @@ body {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin: 100px auto;
 }
 .normal .rooms li {
   width: 80px;
@@ -88,7 +89,7 @@ body {
   height: 150px;
   display: block;
   margin-left: -100px;
-  margin-top: -40px;
+  margin-top: -75px;
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -98,43 +99,43 @@ body {
   top: 0px;
 }
 
-.normal .rooms li.room-1 { margin-left: 150px; }
+.normal .rooms li.room-1 { margin-left: 140px; }
 .normal .rooms li.room-1:before {
   width: 150px;
   height: 150px;
-  margin-left: -160px;
+  margin-left: -110px;
   background-image: svg('sun');
 }
 
-.normal .rooms li.room-2 { margin-left: 130px; }
+.normal .rooms li.room-2 { margin-left: 90px; }
 .normal .rooms li.room-2:before {
   width: 90px;
   height: 150px;
-  margin-left: -100px;
+  margin-left: -90px;
   background-image: svg('fire');
 }
 
-.normal .rooms li.room-3 { margin-left: 130px; }
+.normal .rooms li.room-3 { margin-left: 90px; }
 .normal .rooms li.room-3:before {
   width: 60px;
   height: 150px;
-  margin-left: -80px;
+  margin-left: -70px;
   background-image: svg('candle');
 }
 
-.normal .rooms li.room-4 { margin-left: 130px; }
+.normal .rooms li.room-4 { margin-left: 90px; }
 .normal .rooms li.room-4:before {
-  width: 85px;
-  height: 150px;
-  margin-left: -100px;
-  background-image: svg('lightbulb');
-}
-
-.normal .rooms li.room-5 { margin-left: 130px; }
-.normal .rooms li.room-5:before {
-  width: 50px;
+  width: 65px;
   height: 150px;
   margin-left: -70px;
-  background-image: svg('lowenergy');
+  background-image: svg('oil');
+}
+
+.normal .rooms li.room-5 { margin-left: 100px; margin-right: 30px }
+.normal .rooms li.room-5:before {
+  width: 85px;
+  height: 150px;
+  margin-left: -80px;
+  background-image: svg('lightbulb');
 }
 

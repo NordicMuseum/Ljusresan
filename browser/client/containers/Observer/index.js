@@ -51,11 +51,12 @@ class Observer extends Component {
                 </tr>
               </thead>
               <tbody>
-              {session.rooms.map((data, index) => {
-                const {id, completed} = data
+              {[1,2,3,4,5].map((key, index) => {
+                const data = session.stations[key]
+                const completed = data ? data.completed : false
                 return (
                   <tr key={index}>
-                    <td>{id}</td>
+                    <td>{key}</td>
                     <td style={{
                       backgroundColor: completed ? '#00CC00' : '#CC0000'
                     }}>{completed ? 'complete' : 'incomplete'}</td>
@@ -64,15 +65,6 @@ class Observer extends Component {
               })}
               </tbody>
             </table>
-          </dd>
-          <dt>Log</dt>
-          <dd>
-            <pre>
-              {session.stations.map((data, index) => {
-                const [station, room] = data.split(':')
-                return (`Room: ${room} Station: ${station}\n`)
-              })}
-            </pre>
           </dd>
         </dl>
         <div className={style['actions']}>

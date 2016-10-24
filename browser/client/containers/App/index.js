@@ -7,7 +7,7 @@ import bodymovin from 'bodymovin'
 import 'reset-css/reset.css'
 
 import * as SessionActions from '../../actions/session'
-import { POLLING_FREQUENCY } from '../../constants'
+import { POLLING_FREQUENCY, STATUS_DECAY_TIMEOUT } from '../../constants'
 import style from './style.css'
 
 import hitAnimation from '../../assets/json/hit.json'
@@ -17,6 +17,8 @@ class App extends Component {
 
   constructor (props) {
     super(props)
+
+    this._timeout = null
   }
 
   componentDidMount () {
@@ -34,10 +36,14 @@ class App extends Component {
     }
   }
 
-  makeRevealTimeline () {
+  makeRevealTimeline (soft=false) {
     const timeline = new TimelineMax()
-    timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0 }))
-    timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
+    if (!soft) {
+      timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 1 }))
+      timeline.add(TweenMax.to('#headline', 0.5, { opacity: 1 }))
+      timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0, delay: 5 }))
+      timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
+    }
 
     timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1 }))
@@ -65,15 +71,33 @@ class App extends Component {
   reset (duration=0, parameters={}) {
     return new TimelineMax(parameters)
 
-    .add(TweenMax.to('#status-section', duration, { opacity: 0 }))
-    .add(TweenMax.to('#info-section', duration, { opacity: 1 }))
+    .add(TweenMax.to('#headline', duration, { opacity: 0 }))
+    .add(TweenMax.to('#status-section', duration, { overwrite: 1, opacity: 0 }), `-=${duration}`)
+    .add(TweenMax.to('#info-section', duration, { overwrite: 1, opacity: 0 }))
     .add(TweenMax.allTo([
       `.${style['room-1']}`,
       `.${style['room-2']}`,
       `.${style['room-3']}`,
       `.${style['room-4']}`,
       `.${style['room-5']}`
-    ], 0, {
+    ], duration, {
+      opacity: 0,
+      onComplete: () => {
+        [1, 2, 3, 4, 5].forEach((i) => document.getElementById(`room-${i}`).innerHTML = '')
+      }
+    }), `-=${duration}`)
+  }
+
+  softReset (duration=0, parameters={}) {
+    return new TimelineMax(parameters)
+
+    .add(TweenMax.allTo([
+      `.${style['room-1']}`,
+      `.${style['room-2']}`,
+      `.${style['room-3']}`,
+      `.${style['room-4']}`,
+      `.${style['room-5']}`
+    ], duration, {
       opacity: 0,
       onComplete: () => {
         [1, 2, 3, 4, 5].forEach((i) => document.getElementById(`room-${i}`).innerHTML = '')
@@ -82,13 +106,17 @@ class App extends Component {
   }
 
   transitionToStatusSection () {
-    if (document.getElementById('status-section').style.opacity > 0) {
-      this.reset(0.5, {
-        onComplete: this.makeRevealTimeline.bind(this)
+    clearTimeout(this._timeout)
+    if (document.getElementById('status-section').style.opacity === 1) {
+      this.softReset(0.5, {
+        onComplete: this.makeRevealTimeline.bind(this, true)
       })
     } else {
       this.makeRevealTimeline()
     }
+    this._timeout = setTimeout(() => {
+      this.reset(2)
+    }, STATUS_DECAY_TIMEOUT)
   }
 
   runBodyMovin(roomId) {
@@ -108,11 +136,47 @@ class App extends Component {
     )
   }
 
+  getStatusList () {
+    return [1, 2, 3, 4, 5].reduce((result, index) => {
+      result[index] = this.getRoomStatus(index)
+      return result
+    }, [])
+  }
+
+  getStatusCopy (locale) {
+    const status = this.getStatusList()
+    const missing = status.reduce((result, completed, room) => {
+      if (!completed) result.push(room)
+      return result
+    }, [])
+    if (locale === 'se') {
+      if (missing.length) { // something missing
+        return (
+          <div>Du har använt ljuset klokt men missat något i rum {missing.join(', ').replace(/, (\d)$/, ' och $1')}.<br/>Ta ett extra varv och kom sedan tillbaka hit.</div>
+        )
+      } else { // all complete
+        return (
+          <div>Grattis. Du har använt ljuset klokt.<br/>Lämna ditt ljus till personalen i<br/>audioguidedisken och hämta upp<br/>din belöning. </div>
+        )
+      }
+    } else {
+      if (missing.length) { // something missing
+        return (
+          <div>You have used the light wisely but missed something in room {missing.join(', ').replace(/, (\d)$/, ' and $1')}.<br/>Look it up – then come back here.</div>
+        )
+      } else { // all complete
+        return (
+          <div>Congratulations. You’ve used the<br/>light wisely. You’ll find a reward<br/>waiting for you at the audioguide<br/>disk. Bring your light. </div>
+        )
+      }
+    }
+  }
+
   render() {
     const { session, actions, children } = this.props
     return (
       <div className={style['normal']}>
-        <h1>Ljusresan • The Journey of Light</h1>
+        <h1 id="headline">Ljusresan • The Journey of Light</h1>
         <section id="info-section" className={style['info-section']}>
           <div className={style['flame']}><img src="../../assets/gif/light.gif"/></div>
           <div className={style['copy-content']}>
@@ -129,8 +193,8 @@ class App extends Component {
             <li id="room-5" className={style['room-5']}></li>
           </ol>
           <div className={style['copy-content']}>
-            <div>Du har använt ljuset klokt men<br/>missat något i rum 2 och 4.<br/>Ta ett extra varv och kom sedan<br/>tillbaka hit.</div>
-            <div>You have used the light wisely but<br/>missed something in room 2 and 4.<br/>Look it up – then come back here.</div>
+            {this.getStatusCopy('se')}
+            {this.getStatusCopy('en')}
           </div>
         </section>
       </div>
