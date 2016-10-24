@@ -30,11 +30,4 @@ export const endSession = (tagUid) => (dispatch) => {
   .set('X-tagUid', tagUid)
 
   .send()
-
-  .then(({body}) => {
-    dispatch({
-      type: 'sync session',
-      payload: body
-    })
-  })
 }
