@@ -7,7 +7,7 @@ module.exports = function * (next) {
 
   if (action === 'touch') {
     try {
-      session.set(`stations.${room}.${station}`, true)
+      session.set(`stations.${room}.${station}`, new Date())
 
       // Check for stations within the same room with an `dependsOn` [].
       // Given this structure for example:
