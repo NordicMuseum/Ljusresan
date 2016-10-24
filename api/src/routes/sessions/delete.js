@@ -7,9 +7,7 @@ module.exports = function * (next) {
 
     this.status = 200
   } catch (error) {
-    this.body = {
-      message: error.message
-    }
+    this.body = { error: error.message }
     this.status = 404
   }
 }
