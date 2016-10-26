@@ -47,8 +47,7 @@ module.exports = class Session extends Model {
     const hasEnded = this.attributes.hasEnded
     if (stations && !hasEnded) {
       const {room, station} = parseStations(stations)
-      dmx.on(room, station)
-      setTimeout(() => { dmx.off(room, station) }, config.dmx.timeout)
+      dmx.on(room, station, config.dmx.timeout)
     }
   }
 

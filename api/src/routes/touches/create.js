@@ -36,8 +36,7 @@ module.exports = function * (next) {
         })
 
         if (shouldTurnOn) {
-          dmx.on(room, station.id)
-          setTimeout(() => { dmx.off(room, station.id) }, config.dmx.timeout)
+          dmx.on(room, station.id, config.dmx.timeout)
         }
       })
 
