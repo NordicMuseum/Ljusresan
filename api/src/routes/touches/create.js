@@ -40,6 +40,29 @@ module.exports = function * (next) {
         }
       })
 
+      // Check for stations within the same room with an `dependsOn` [].
+      // Given this structure for example:
+      //
+      //  3: [
+      //    {id: 1, ...},
+      //    {
+      //      id: 3,
+      //      T: '04',
+      //      P: '09',
+      //      D: '01',
+      //      dependsOn: [1]
+      //    },
+      //    {
+      //      id: 3,
+      //      T: '04',
+      //      P: '09',
+      //      D: '01',
+      //      dependsOn: [1]
+      //    }
+      //  ]
+      //
+      // We want to disable dmx trigger unless 3-1 has been set to `true`.
+
       yield session.save()
 
       this.status = 204
