@@ -9,7 +9,7 @@ module.exports = function * (next) {
     try {
       session.set(`stations.${room}.${station}`, new Date())
 
-      // Check for stations within the same room with an `dependsOn` [].
+      // Check for stations within the same room with an `onWhen` [].
       // Given this structure for example:
       //
       //  3: [
@@ -20,18 +20,18 @@ module.exports = function * (next) {
       //      T: '04',
       //      P: '09',
       //      D: '01',
-      //      dependsOn: [1, 2]
+      //      onWhen: [1, 2]
       //    }
       //  ]
       //
       // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
 
       const withDependencies = config.commandMapping[room].filter(station => {
-        return station.dependsOn
+        return station.onWhen
       })
 
       withDependencies.forEach(station => {
-        const shouldTurnOn = station.dependsOn.every(id => {
+        const shouldTurnOn = station.onWhen.every(id => {
           return session.get('stations')[room][id]
         })
 
