@@ -1,9 +1,24 @@
 const config = require('../config')
-const net = require('net')
+const reconnect = require('net-socket-reconnect')
 
 class DMX {
   constructor (host, port) {
-    this.client = net.createConnection(port, host)
+    this.client = reconnect({
+      port,
+      host,
+      reconnectOnTimeout: true,
+      reconnectOnCreate: true,
+      reconnectInterval: 60000,
+      reconnectTimes: 1440
+    })
+
+    this.client.on('error', error => {
+      console.log('[DMX ERROR]', error.code)
+    })
+
+    this.client.on('end', () => {
+      console.log('[DMX INFO] disconnected from server')
+    })
   }
 
   on (room, station) {
