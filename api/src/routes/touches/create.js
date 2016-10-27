@@ -64,6 +64,24 @@ module.exports = function * (next) {
       //
       // We want to disable dmx trigger unless 3-1 has been set to `true`.
 
+      const {dependsOn} = config.commandMapping[room].find(s => {
+        return s.id === station
+      })
+
+      if (dependsOn) {
+        const dependenciesMet = dependsOn.every(id => {
+          return session.get(`stations.${room}.${id}`)
+        })
+
+        if (dependenciesMet) {
+          session.set(`stations.${room}.${station}`, now)
+        } else {
+          throw new Error('Destination dependency not met')
+        }
+      } else {
+        session.set(`stations.${room}.${station}`, now)
+      }
+
       yield session.save()
 
       this.status = 204
