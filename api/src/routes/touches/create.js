@@ -1,5 +1,4 @@
 const config = require('../../config')
-const dmx = require('../../modules/dmx')
 
 module.exports = function * (next) {
   const session = this.session
