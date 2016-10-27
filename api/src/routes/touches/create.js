@@ -27,19 +27,22 @@ module.exports = function * (next) {
       //
       // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
 
-      const withDependencies = config.commandMapping[room].filter(station => {
-        return station.onWhen
+      // get all stations with .onWhen []
+      const withOnWhen = config.commandMapping[room].filter(s => {
+        return s.onWhen
       })
 
-      withDependencies.forEach(station => {
-        const shouldTurnOn = station.onWhen.every(id => {
-          return session.get('stations')[room][id]
+      if (withOnWhen) {
+        withOnWhen.forEach(s => {
+          const shouldTurnOn = s.onWhen.every(id => {
+            return session.get(`stations.${room}.${id}`)
+          })
+
+          if (shouldTurnOn) {
+            session.set(`stations.${room}.${s.id}`, now)
+          }
         })
-
-        if (shouldTurnOn) {
-          dmx.on(room, station.id, config.dmx.timeout)
-        }
-      })
+      }
 
       // Check for stations within the same room with an `dependsOn` [].
       // Given this structure for example:
