@@ -5,9 +5,11 @@ module.exports = function * (next) {
   const session = this.session
   const {action, staticUserData: {room, station}} = this.request.body
 
+  const now = new Date()
+
   if (action === 'touch') {
     try {
-      session.set(`stations.${room}.${station}`, new Date())
+      session.set(`stations.${room}.${station}`, now)
 
       // Check for stations within the same room with an `onWhen` [].
       // Given this structure for example:
