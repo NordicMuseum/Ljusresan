@@ -1,15 +1,6 @@
 const config = require('../config')
 const Model = require('mongorito').Model
 const dmx = require('../modules/dmx')
-const flatten = require('flat')
-
-const parseStations = (stations) => {
-  const obj = Object.keys(flatten(stations))[0].split('.')
-  return {
-    room: parseInt(obj[0], 10),
-    station: parseInt(obj[1], 10)
-  }
-}
 
 module.exports = class Session extends Model {
   collection () {
@@ -28,27 +19,41 @@ module.exports = class Session extends Model {
   }
 
   * validate () {
-    const {stations, hasEnded} = this.changed
-    if (stations && !hasEnded) {
-      const {room, station} = parseStations(stations)
+    const room = this.changed.stations
+    const hasEnded = this.attributes.hasEnded
 
-      const found = config.commandMapping[room].find(s => {
-        return s.id === station
-      })
+    if (room && !hasEnded) {
+      for (let r in room) {
+        for (let s in room[r]) {
+          const room = parseInt(r)
+          const station = parseInt(s)
 
-      if (!found) {
-        throw new Error('Destination not found in `commandMapping`')
+          const found = config.commandMapping[room].find(s => {
+            return s.id === station
+          })
+
+          if (!found) {
+            throw new Error('Destination not found in `commandMapping`')
+          }
+
+          dmx.on(room, station)
+        }
       }
     }
   }
 
   * toggleLight () {
-    const stations = this.changed.stations
+    const room = this.changed.stations
     const hasEnded = this.attributes.hasEnded
-    if (stations && !hasEnded) {
-      const {room, station} = parseStations(stations)
-      dmx.on(room, station)
-      setTimeout(() => { dmx.off(room, station) }, config.dmx.timeout)
+
+    if (room && !hasEnded) {
+      for (let r in room) {
+        for (let s in room[r]) {
+          const room = parseInt(r)
+          const station = parseInt(s)
+          dmx.on(room, station)
+        }
+      }
     }
   }
 

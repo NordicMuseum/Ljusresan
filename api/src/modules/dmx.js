@@ -21,11 +21,12 @@ class DMX {
     })
   }
 
-  on (room, station) {
+  on (room, station, timeout = config.dmx.timeout) {
     const {T, P, D} = config.commandMapping[room].find(s => s.id === station)
 
     if (T && P && D) {
       this.client.write(`>_T${T}_P${P}_D${D}_ON_<`)
+      setTimeout(() => { this.off(room, station) }, timeout)
     }
   }
 
