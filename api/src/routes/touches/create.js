@@ -72,11 +72,11 @@ module.exports = function * (next) {
       })
 
       if (dependsOn) {
-        const dependenciesMet = dependsOn.every(id => {
+        const dependenciesHaveBeenMet = dependsOn.every(id => {
           return session.get(`stations.${room}.${id}`)
         })
 
-        if (dependenciesMet) {
+        if (dependenciesHaveBeenMet) {
           session.set(`stations.${room}.${station}`, now)
         } else {
           throw new Error('Destination dependency not met')
