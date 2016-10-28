@@ -1,7 +1,7 @@
 const Session = require('../../models/session')
 
 module.exports = function * (next) {
-  const session = yield Session.mostRecentFinalStationVisit()
+  const session = yield Session.lastVisitTo(6, 26)
 
   if (session) {
     this.response.body = session

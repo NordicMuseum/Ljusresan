@@ -57,15 +57,9 @@ module.exports = class Session extends Model {
     }
   }
 
-  static mostRecentFinalStationVisit () {
-    return this.sort({ 'stations.6.26': -1 }).limit(1).find({
-      'stations.6.26': { $exists: true }, hasEnded: false
-    }).then(docs => docs[0])
-  }
-
-  static mostRecentObserverVisit () {
-    return this.sort({ 'stations.7.27': -1 }).limit(1).find({
-      'stations.7.27': { $exists: true }, hasEnded: false
+  static lastVisitTo (room, station) {
+    return this.sort({ [`stations.${room}.${station}`]: -1 }).limit(1).find({
+      [`stations.${room}.${station}`]: { $exists: true }, hasEnded: false
     }).then(docs => docs[0])
   }
 }
