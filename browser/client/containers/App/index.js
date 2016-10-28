@@ -35,8 +35,9 @@ class App extends Component {
   componentWillReceiveProps (nextProps) {
     if (
       nextProps.session &&
-      this.props.session.updatedAt &&
-      nextProps.session.updatedAt !== this.props.session.updatedAt) {
+      this.props.session.stations[6][26] &&
+      nextProps.session.stations[6][26] !== this.props.session.stations[6][26]) {
+      console.log('hello')
       this.transitionToStatusSection()
     }
   }
