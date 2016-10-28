@@ -35,8 +35,6 @@ module.exports = class Session extends Model {
           if (!found) {
             throw new Error('Destination not found in `commandMapping`')
           }
-
-          dmx.on(room, station)
         }
       }
     }
@@ -51,7 +49,12 @@ module.exports = class Session extends Model {
         for (let s in room[r]) {
           const room = parseInt(r)
           const station = parseInt(s)
-          dmx.on(room, station)
+
+          const {timeout} = config.commandMapping[room].find(s => {
+            return s.id === station
+          })
+
+          dmx.on(room, station, timeout)
         }
       }
     }
