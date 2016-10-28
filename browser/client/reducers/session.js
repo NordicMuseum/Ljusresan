@@ -15,9 +15,9 @@ const validateCompletion = (roomId, numStations) => {
     case 2:
       return !!(numStations === 3)
     case 3:
-      return !!(numStations > 5)
+      return !!(numStations > 4)
     case 4:
-      return !!(numStations === 8)
+      return !!(numStations > 8)
     case 5:
       return !!(numStations === 6)
     case 6:
