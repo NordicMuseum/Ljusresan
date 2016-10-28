@@ -24,6 +24,9 @@ router.get('/statuses',
 router.get('/statuses/final',
   require('./src/routes/statuses/final'))
 
+router.get('/statuses/observer',
+  require('./src/routes/statuses/final'))
+
 /**
  * Configure application
  */

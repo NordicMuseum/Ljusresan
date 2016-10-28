@@ -7,6 +7,9 @@ module.exports = function * (next) {
     this.response.body = session
     this.response.status = 200
   } else {
+    this.response.body = {
+      message: 'Most recent final station visit not found'
+    }
     this.response.status = 404
   }
 }
