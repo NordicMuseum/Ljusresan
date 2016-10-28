@@ -15,7 +15,7 @@ module.exports = {
 
   commandMapping: {
     1: [
-      {id: 2, T: '01', P: '05', D: '01'}
+      {id: 2, T: '01', P: '05', D: '01', timeout: 5000}
     ],
 
     2: [
