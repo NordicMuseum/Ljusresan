@@ -54,7 +54,11 @@ module.exports = class Session extends Model {
             return s.id === station
           })
 
-          dmx.on(room, station, timeout)
+          dmx.off(room, station)
+
+          setTimeout(() => {
+            dmx.on(room, station, timeout)
+          }, 2000)
         }
       }
     }
