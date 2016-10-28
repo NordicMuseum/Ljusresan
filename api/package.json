@@ -19,7 +19,8 @@
     "koa-favicon": "^1.2.1",
     "koa-router": "^5.4.0",
     "lodash": "^4.16.4",
-    "mongorito": "^2.1.2"
+    "mongorito": "^2.1.2",
+    "net-socket-reconnect": "0.0.9"
   },
   "devDependencies": {
     "standard": "^8.1.0"
