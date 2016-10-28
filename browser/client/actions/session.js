@@ -25,9 +25,13 @@ export const syncObserver = () => (dispatch) => {
 }
 
 export const endSession = (tagUid) => (dispatch) => {
-  return request.del(`/api/sessions`)
+  return request.del(`/api/sessions`).set('X-tagUid', tagUid).send()
 
-  .set('X-tagUid', tagUid)
+  .then(res => {
+    console.log(res)
+  })
 
-  .send()
+  .catch(err => {
+    console.error(err)
+  })
 }
