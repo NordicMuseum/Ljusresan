@@ -25,11 +25,11 @@ module.exports = class Session extends Model {
     if (room && !hasEnded) {
       for (let r in room) {
         for (let s in room[r]) {
-          const room = parseInt(r)
-          const station = parseInt(s)
+          const idRoom = parseInt(r)
+          const idStation = parseInt(s)
 
-          const found = config.commandMapping[room].find(s => {
-            return s.id === station
+          const found = config.commandMapping[idRoom].find(station => {
+            return station.id === idStation
           })
 
           if (!found) {
@@ -47,22 +47,29 @@ module.exports = class Session extends Model {
     if (room && !hasEnded) {
       for (let r in room) {
         for (let s in room[r]) {
-          const room = parseInt(r)
-          const station = parseInt(s)
+          const idRoom = parseInt(r)
+          const idStation = parseInt(s)
 
-          const {timeout} = config.commandMapping[room].find(s => {
-            return s.id === station
+          const {timeout} = config.commandMapping[idRoom].find(station => {
+            return station.id === idStation
           })
 
-          dmx.on(room, station, timeout)
+          dmx.on(idRoom, idStation, timeout)
         }
       }
     }
   }
 
-  static lastVisitTo (room, station) {
-    return this.sort({ [`stations.${room}.${station}`]: -1 }).limit(1).find({
-      [`stations.${room}.${station}`]: { $exists: true }, hasEnded: false
-    }).then(docs => docs[0])
+  static lastVisitTo (idRoom, idStation) {
+    return this.sort({
+      [`stations.${idRoom}.${idStation}`]: -1
+    })
+    .limit(1).find({
+      [`stations.${idRoom}.${idStation}`]: {
+        $exists: true
+      },
+      hasEnded: false
+    })
+    .then(docs => docs[0])
   }
 }

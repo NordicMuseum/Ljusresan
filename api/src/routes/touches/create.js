@@ -2,13 +2,19 @@ const config = require('../../config')
 
 module.exports = function * (next) {
   const session = this.session
-  const {action, staticUserData: {room, station}} = this.request.body
+  const {
+    action,
+    staticUserData: {
+      room: idRoom,
+      station: idStation
+    }
+  } = this.request.body
 
   const now = new Date()
 
   if (action === 'touch') {
     try {
-      session.set(`stations.${room}.${station}`, now)
+      session.set(`stations.${idRoom}.${idStation}`, now)
 
       // Check for stations within the same room with an `onWhen` [].
       // Given this structure for example:
@@ -28,18 +34,18 @@ module.exports = function * (next) {
       // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
 
       // get all stations with .onWhen []
-      const withOnWhen = config.commandMapping[room].filter(s => {
-        return s.onWhen
+      const withOnWhen = config.commandMapping[idRoom].filter(station => {
+        return station.onWhen
       })
 
       if (withOnWhen) {
-        withOnWhen.forEach(s => {
-          const shouldTurnOn = s.onWhen.every(id => {
-            return session.get(`stations.${room}.${id}`)
+        withOnWhen.forEach(station => {
+          const shouldTurnOn = station.onWhen.every(idDependency => {
+            return session.get(`stations.${idRoom}.${idDependency}`)
           })
 
           if (shouldTurnOn) {
-            session.set(`stations.${room}.${s.id}`, now)
+            session.set(`stations.${idRoom}.${station.id}`, now)
           }
         })
       }
@@ -67,22 +73,22 @@ module.exports = function * (next) {
       //
       // We want to disable dmx trigger unless 3-1 has been set to `true`.
 
-      const {dependsOn} = config.commandMapping[room].find(s => {
-        return s.id === station
+      const {dependsOn} = config.commandMapping[idRoom].find(station => {
+        return station.id === idStation
       })
 
       if (dependsOn) {
-        const dependenciesHaveBeenMet = dependsOn.every(id => {
-          return session.get(`stations.${room}.${id}`)
+        const dependenciesHaveBeenMet = dependsOn.every(idDependency => {
+          return session.get(`stations.${idRoom}.${idDependency}`)
         })
 
         if (dependenciesHaveBeenMet) {
-          session.set(`stations.${room}.${station}`, now)
+          session.set(`stations.${idRoom}.${idStation}`, now)
         } else {
           throw new Error('Destination dependency not met')
         }
       } else {
-        session.set(`stations.${room}.${station}`, now)
+        session.set(`stations.${idRoom}.${idStation}`, now)
       }
 
       yield session.save()
