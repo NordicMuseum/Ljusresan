@@ -102,6 +102,14 @@ module.exports = function * (next) {
   }
 
   if (action === 'remove') {
-    dmx.off(idRoom, idStation)
+    const {timeout} = config.commandMapping[idRoom].find(station => {
+      return station.id === idStation
+    })
+
+    if (timeout < 0) {
+      dmx.off(idRoom, idStation)
+    }
+
+    this.status = 204
   }
 }
