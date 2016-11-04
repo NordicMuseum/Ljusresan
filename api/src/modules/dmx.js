@@ -28,7 +28,10 @@ class DMX {
 
     if (T && P && D) {
       this.client.write(`>_T${T}_P${P}_D${D}_ON_<`)
-      // setTimeout(() => { this.off(idRoom, idStation) }, timeout)
+
+      if (timeout > 0) {
+        setTimeout(() => { this.off(idRoom, idStation) }, timeout)
+      }
     }
   }
 
