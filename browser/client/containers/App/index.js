@@ -33,10 +33,13 @@ class App extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (
+    const isNewTouch = (
       nextProps.session &&
+      this.props.session.stations[6] &&
       this.props.session.stations[6][26] &&
-      nextProps.session.stations[6][26] !== this.props.session.stations[6][26]) {
+      nextProps.session.stations[6][26] !== this.props.session.stations[6][26]
+    )
+    if (isNewTouch) {
       this.transitionToStatusSection()
     }
   }
