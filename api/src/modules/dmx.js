@@ -21,17 +21,21 @@ class DMX {
     })
   }
 
-  on (room, station, timeout = config.dmx.timeout) {
-    const {T, P, D} = config.commandMapping[room].find(s => s.id === station)
+  on (idRoom, idStation, timeout = config.dmx.timeout) {
+    const {T, P, D} = config.commandMapping[idRoom].find(station => {
+      return station.id === idStation
+    })
 
     if (T && P && D) {
       this.client.write(`>_T${T}_P${P}_D${D}_ON_<`)
-      setTimeout(() => { this.off(room, station) }, timeout)
+      // setTimeout(() => { this.off(idRoom, idStation) }, timeout)
     }
   }
 
-  off (room, station) {
-    const {T, P, D} = config.commandMapping[room].find(s => s.id === station)
+  off (idRoom, idStation) {
+    const {T, P, D} = config.commandMapping[idRoom].find(station => {
+      return station.id === idStation
+    })
 
     if (T && P && D) {
       this.client.write(`>_T${T}_P${P}_D${D}_OFF_<`)

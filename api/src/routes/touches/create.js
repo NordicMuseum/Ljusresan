@@ -1,4 +1,5 @@
 const config = require('../../config')
+const dmx = require('../../modules/dmx')
 
 module.exports = function * (next) {
   const session = this.session
@@ -98,5 +99,9 @@ module.exports = function * (next) {
       this.body = { error: error.message }
       this.status = 404
     }
+  }
+
+  if (action === 'remove') {
+    dmx.off(idRoom, idStation)
   }
 }
