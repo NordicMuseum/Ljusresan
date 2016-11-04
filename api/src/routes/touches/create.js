@@ -35,7 +35,7 @@ module.exports = function * (next) {
       // We want to turn on 3-3 if 3-1 and 3-2 are `true`.
 
       // get all stations with .onWhen []
-      const withOnWhen = config.commandMapping[idRoom].filter(station => {
+      const withOnWhen = config.stationMapping[idRoom].filter(station => {
         return station.onWhen
       })
 
@@ -74,7 +74,7 @@ module.exports = function * (next) {
       //
       // We want to disable dmx trigger unless 3-1 has been set to `true`.
 
-      const {dependsOn} = config.commandMapping[idRoom].find(station => {
+      const {dependsOn} = config.stationMapping[idRoom].find(station => {
         return station.id === idStation
       })
 
@@ -102,7 +102,7 @@ module.exports = function * (next) {
   }
 
   if (action === 'remove') {
-    const {timeout} = config.commandMapping[idRoom].find(station => {
+    const {timeout} = config.stationMapping[idRoom].find(station => {
       return station.id === idStation
     })
 

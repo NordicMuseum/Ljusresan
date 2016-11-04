@@ -13,7 +13,7 @@ module.exports = {
     timeout: process.env.DMX_TIMEOUT
   },
 
-  commandMapping: {
+  stationMapping: {
     1: [
       {id: 2, T: '01', P: '05', D: '01', timeout: -1}
     ],

@@ -28,12 +28,12 @@ module.exports = class Session extends Model {
           const idRoom = parseInt(r)
           const idStation = parseInt(s)
 
-          const found = config.commandMapping[idRoom].find(station => {
+          const found = config.stationMapping[idRoom].find(station => {
             return station.id === idStation
           })
 
           if (!found) {
-            throw new Error('Destination not found in `commandMapping`')
+            throw new Error('Destination not found in `stationMapping`')
           }
         }
       }
@@ -50,7 +50,7 @@ module.exports = class Session extends Model {
           const idRoom = parseInt(r)
           const idStation = parseInt(s)
 
-          const {timeout} = config.commandMapping[idRoom].find(station => {
+          const {timeout} = config.stationMapping[idRoom].find(station => {
             return station.id === idStation
           })
 

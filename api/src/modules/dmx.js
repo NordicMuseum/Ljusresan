@@ -22,7 +22,7 @@ class DMX {
   }
 
   on (idRoom, idStation, timeout = config.dmx.timeout) {
-    const {T, P, D} = config.commandMapping[idRoom].find(station => {
+    const {T, P, D} = config.stationMapping[idRoom].find(station => {
       return station.id === idStation
     })
 
@@ -36,7 +36,7 @@ class DMX {
   }
 
   off (idRoom, idStation) {
-    const {T, P, D} = config.commandMapping[idRoom].find(station => {
+    const {T, P, D} = config.stationMapping[idRoom].find(station => {
       return station.id === idStation
     })
 
