@@ -18,6 +18,11 @@ class App extends Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      statusCopySE: null,
+      statusCopyEN: null
+    }
+
     this._timeout = null
   }
 
@@ -44,6 +49,13 @@ class App extends Component {
     }
   }
 
+  updateCopy () {
+    this.setState({
+      statusCopySE: this.getStatusCopy('se'),
+      statusCopyEN: this.getStatusCopy('en')
+    })
+  }
+
   makeRevealTimeline (soft=false) {
     const timeline = new TimelineMax()
     if (!soft) {
@@ -52,7 +64,7 @@ class App extends Component {
       timeline.add(TweenMax.to('#info-section', 0.5, { opacity: 0, delay: 5 }))
     }
 
-    timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1 }))
+    timeline.add(TweenMax.to('#status-section', 0.5, { opacity: 1, onStart: this.updateCopy.bind(this) }))
     timeline.add(TweenMax.to(`.${style['room-1']}`, 0.2, {overwrite: 1, opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-2']}`, 0.2, {overwrite: 1, opacity: 1 }))
     timeline.add(TweenMax.to(`.${style['room-3']}`, 0.2, {overwrite: 1, opacity: 1 }))
@@ -203,8 +215,8 @@ class App extends Component {
             <li id="room-5" className={style['room-5']}></li>
           </ol>
           <div className={style['copy-content']}>
-            {this.getStatusCopy('se')}
-            {this.getStatusCopy('en')}
+            {this.state.statusCopySE}
+            {this.state.statusCopyEN}
           </div>
         </section>
       </div>
