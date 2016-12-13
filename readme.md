@@ -2,10 +2,10 @@
 RFID proxy/command unit
 
 ## Prerequisites
-- docker
+- docker (for mac)
 - docker-compose
 
 ## Development
 - `$ docker-compose up`
 
-Note: If it's your first time running `docker-compose` you must add the `--build` flag.
+Note: Run `yarn install` in every directory containing `yarn.lock`.
