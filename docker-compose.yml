@@ -1,0 +1,54 @@
+version: "2"
+
+services:
+  nginx:
+    container_name: "nordisktljus-nginx"
+    build: ./nginx
+    ports:
+      - "5000:80"
+    links:
+      - api
+      - browser
+
+  api:
+    container_name: "nordisktljus-api"
+    build: ./api
+    volumes:
+      - ./api:/usr/src/api
+    ports:
+      - "5000"
+    links:
+      - mongo
+      - telnet
+    environment:
+      - NODE_ENV=development
+      - KOA_PORT=5000
+      - DATABASE_HOST=mongo
+      - DMX_HOST=telnet
+      - DMX_PORT=5000
+      - DMX_TIMEOUT=30000
+    command: supervisor -w src,index.js index.js
+
+  browser:
+    container_name: "nordisktljus-browser"
+    build: ./browser
+    ports:
+      - "5000"
+    volumes:
+      - ./browser:/usr/src/browser
+    command: npm start
+
+  mongo:
+    container_name: "nordisktljus-mongo"
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+
+  telnet:
+    container_name: "nordisktljus-telnet"
+    build: ./telnet
+    ports:
+      - "5000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5000

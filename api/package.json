@@ -1,0 +1,28 @@
+{
+  "name": "nordiskt-ljus",
+  "version": "1.0.0",
+  "engines": {
+    "node": "6.5.0"
+  },
+  "author": "Earth People",
+  "license": "ISC",
+  "private": true,
+  "description": "Nordiskt Ljus service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "flat": "^2.0.1",
+    "koa": "^1.2.4",
+    "koa-bodyparser": "^2.2.0",
+    "koa-favicon": "^1.2.1",
+    "koa-router": "^5.4.0",
+    "lodash": "^4.16.4",
+    "mongorito": "^2.1.2",
+    "net-socket-reconnect": "0.0.9"
+  },
+  "devDependencies": {
+    "standard": "^8.1.0"
+  }
+}
