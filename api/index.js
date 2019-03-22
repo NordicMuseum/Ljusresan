@@ -1,47 +1,40 @@
 const config = require('./src/config')
+const { Database } = require('mongorito')
+const Koa = require('koa')
 
-/**
- * Connect to database
- */
-const Mongorito = require('mongorito')
-Mongorito.connect(config.database.host + '/nordisktljus')
+;(async function () {
+  const database = new Database(config.database.host + '/nordisktljus')
 
-/**
- * Setup koa & routes
- */
-const app = require('koa')()
-const router = require('koa-router')()
+  await database.connect()
 
-router.del('/sessions',
-  require('./src/routes/sessions/delete'))
+  const app = new Koa()
+  const router = require('koa-router')()
 
-router.post('/touches',
-  require('./src/routes/touches/create'))
+  router.del('/sessions',
+    require('./src/routes/sessions/delete'))
 
-router.get('/statuses',
-  require('./src/routes/statuses/show'))
+  router.post('/touches',
+    require('./src/routes/touches/create'))
 
-router.get('/statuses/final',
-  require('./src/routes/statuses/final'))
+  router.get('/statuses',
+    require('./src/routes/statuses/show'))
 
-router.get('/statuses/observer',
-  require('./src/routes/statuses/observer'))
+  router.get('/statuses/final',
+    require('./src/routes/statuses/final'))
 
-/**
- * Configure application
- */
-app
-  .use(require('koa-bodyparser')())
-  .use(require('./src/middleware/session'))
-  .use(router.routes())
-  .use(router.allowedMethods())
-  .use(require('koa-favicon')(
-    require('path').join(__dirname, './src/assets/favicon.ico')
-  ))
+  router.get('/statuses/observer',
+    require('./src/routes/statuses/observer'))
 
-/**
- * Boot application
- */
-app.listen(config.koa.port, () => {
-  console.log('Nordiskt Ljus listening on port', config.koa.port)
-})
+  app
+    .use(require('koa-bodyparser')())
+    .use(require('./src/middleware/session'))
+    .use(router.routes())
+    .use(router.allowedMethods())
+    .use(require('koa-favicon')(
+      require('path').join(__dirname, './src/assets/favicon.ico')
+    ))
+
+  app.listen(config.koa.port, () => {
+    console.log('Ljusresan API listening on port', config.koa.port)
+  })
+})()
