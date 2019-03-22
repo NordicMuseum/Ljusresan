@@ -14,7 +14,7 @@ services:
     container_name: "nordisktljus-api"
     build: ./api
     volumes:
-      - ./api:/usr/src/api
+      - ./api:/usr/app
     ports:
       - "5000"
     links:

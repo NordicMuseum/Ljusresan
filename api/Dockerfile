@@ -1,13 +1,13 @@
 FROM node:11.1.0
 
-RUN mkdir -p /usr/src/api
-WORKDIR /usr/src/api
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
 RUN npm install supervisor -g
 
-COPY package.json /usr/src/api
+COPY package.json /usr/app
 RUN npm install
 
 EXPOSE 5000
 
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]
