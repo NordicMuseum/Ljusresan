@@ -1,4 +1,4 @@
-FROM node:6.5.0
+FROM node:11.1.0
 
 RUN mkdir -p /usr/src/telnet
 WORKDIR /usr/src/telnet
