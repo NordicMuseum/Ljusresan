@@ -23,8 +23,8 @@ module.exports = class Session extends Model {
     const hasEnded = this.attributes.hasEnded
 
     if (room && !hasEnded) {
-      for (let r in room) {
-        for (let s in room[r]) {
+      for (const r in room) {
+        for (const s in room[r]) {
           const idRoom = parseInt(r)
           const idStation = parseInt(s)
 
@@ -45,8 +45,8 @@ module.exports = class Session extends Model {
     const hasEnded = this.attributes.hasEnded
 
     if (room && !hasEnded) {
-      for (let r in room) {
-        for (let s in room[r]) {
+      for (const r in room) {
+        for (const s in room[r]) {
           const idRoom = parseInt(r)
           const idStation = parseInt(s)
 
