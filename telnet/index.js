@@ -1,21 +1,21 @@
 const net = require('net')
+const { HOST, PORT } = process.env
 
-const HOST = process.env.HOST
-const PORT = process.env.PORT
+;(function () {
+  const server = net.createServer((socket) => {
+    console.log(socket.remoteAddress + ':' + socket.remotePort + ' connected...')
 
-net.createServer(sock => {
-  console.log(sock.remoteAddress +':'+ sock.remotePort + ' connected...')
+    socket.on('data', (data) => {
+      console.log(socket.remoteAddress + ': ' + data)
+      socket.write('echo: ' + data)
+    })
 
-  sock.on('data', function (data) {
-    console.log(sock.remoteAddress + ': ' + data)
-    sock.write('echo: ' + data)
+    socket.on('close', (data) => {
+      console.log(socket.remoteAddress + ':' + socket.remotePort + ' disconnected...')
+    })
   })
 
-  sock.on('close', data => {
-    console.log(sock.remoteAddress +':'+ sock.remotePort + ' disconnected...')
-  })
-})
+  server.listen(PORT, HOST)
 
-.listen(PORT, HOST)
-
-console.log('Listening on ' + HOST +':'+ PORT)
+  console.log('Listening on ' + HOST + ':' + PORT)
+})()

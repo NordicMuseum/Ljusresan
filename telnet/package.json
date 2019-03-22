@@ -1,9 +1,6 @@
 {
   "name": "telnet-echo",
   "version": "1.0.0",
-  "engines": {
-    "node": "6.5.0"
-  },
   "author": "Earth People",
   "license": "ISC",
   "private": true,

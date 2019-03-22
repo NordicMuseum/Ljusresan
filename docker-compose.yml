@@ -49,6 +49,8 @@ services:
     build: ./telnet
     ports:
       - "5000"
+    volumes:
+      - ./telnet:/usr/app
     environment:
       - HOST=0.0.0.0
       - PORT=5000
