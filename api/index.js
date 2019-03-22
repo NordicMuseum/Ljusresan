@@ -1,6 +1,7 @@
 const config = require('./src/config')
 const { Database } = require('mongorito')
 const Koa = require('koa')
+const Router = require('koa-router')
 
 ;(async function () {
   const database = new Database(config.database.host + '/nordisktljus')
@@ -8,7 +9,7 @@ const Koa = require('koa')
   await database.connect()
 
   const app = new Koa()
-  const router = require('koa-router')()
+  const router = new Router()
 
   router.del('/sessions',
     require('./src/routes/sessions/delete'))

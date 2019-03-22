@@ -1,7 +1,7 @@
 const Session = require('../../models/session')
 
-module.exports = function * (next) {
-  const session = yield Session.lastVisitTo(7, 27)
+module.exports = async (ctx, next) => {
+  const session = await Session.lastVisitTo(7, 27)
 
   if (session) {
     this.response.body = session

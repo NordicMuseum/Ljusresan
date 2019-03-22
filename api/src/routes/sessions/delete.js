@@ -1,9 +1,9 @@
-module.exports = function * (next) {
+module.exports = async (ctx, next) => {
   const session = this.session
 
   try {
     session.set('hasEnded', true)
-    yield session.save()
+    await session.save()
 
     this.status = 200
   } catch (error) {

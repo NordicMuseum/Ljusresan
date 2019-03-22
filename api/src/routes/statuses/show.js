@@ -1,4 +1,4 @@
-module.exports = function * (next) {
+module.exports = async (ctx, next) => {
   if (this.session) {
     this.response.body = this.session
     this.response.status = 200
