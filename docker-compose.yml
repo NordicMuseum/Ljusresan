@@ -3,7 +3,7 @@ version: "2"
 services:
   nginx:
     container_name: "nordisktljus-nginx"
-    build: ./nginx
+    build: "./nginx"
     ports:
       - "5000:80"
     links:
@@ -12,9 +12,9 @@ services:
 
   api:
     container_name: "nordisktljus-api"
-    build: ./api
+    build: "./api"
     volumes:
-      - ./api:/usr/app
+      - "./api:/usr/app"
     ports:
       - "5000"
     links:
@@ -27,16 +27,16 @@ services:
       - DMX_HOST=telnet
       - DMX_PORT=5000
       - DMX_TIMEOUT=30000
-    command: supervisor -w src,index.js index.js
+    command: "supervisor -w src,index.js index.js"
 
   browser:
     container_name: "nordisktljus-browser"
-    build: ./browser
+    build: "./browser"
     ports:
       - "5000"
     volumes:
-      - ./browser:/usr/src/browser
-    command: npm start
+      - "./browser:/usr/app"
+    command: "npm start"
 
   mongo:
     container_name: "nordisktljus-mongo"
@@ -46,11 +46,12 @@ services:
 
   telnet:
     container_name: "nordisktljus-telnet"
-    build: ./telnet
+    build: "./telnet"
     ports:
       - "5000"
     volumes:
-      - ./telnet:/usr/app
+      - "./telnet:/usr/app"
     environment:
       - HOST=0.0.0.0
       - PORT=5000
+    command: "npm start"
