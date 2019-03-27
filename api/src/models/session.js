@@ -50,7 +50,7 @@ module.exports = class Session extends Model {
           const idRoom = parseInt(r)
           const idStation = parseInt(s)
 
-          const {timeout} = config.stationMapping[idRoom].find(station => {
+          const { timeout } = config.stationMapping[idRoom].find(station => {
             return station.id === idStation
           })
 
@@ -64,12 +64,12 @@ module.exports = class Session extends Model {
     return this.sort({
       [`stations.${idRoom}.${idStation}`]: -1
     })
-    .limit(1).find({
-      [`stations.${idRoom}.${idStation}`]: {
-        $exists: true
-      },
-      hasEnded: false
-    })
-    .then(docs => docs[0])
+      .limit(1).find({
+        [`stations.${idRoom}.${idStation}`]: {
+          $exists: true
+        },
+        hasEnded: false
+      })
+      .then(docs => docs[0])
   }
 }
